@@ -10,7 +10,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: init
-      uses: ./.github/actions/init.yaml
+      uses: ./.github/actions/init
     - name: terraform plan
       uses: dflook/terraform-plan@v1
       with:
