@@ -1,0 +1,22 @@
+name: Create terraform plan
+
+on: [pull_request]
+
+jobs:
+  plan:
+    init:
+      uses: WhiteTomX/microsoft-teams-apps-icebreaker/.github/workflows/init.yaml
+    steps:
+      - name: terraform plan
+        uses: dflook/terraform-plan@v1
+        with:
+          path: ${{ env.TF_DIR }}
+          variables: |
+            stage="int"
+          backend_config: | 
+            resource_group_name=rg-Icebreaker-int-01
+            storage_account_name=stzgminttficebreaker01
+            container_name=tfstate
+            key=int.tfstate
+            use_microsoft_graph=true
+            use_azuread_auth=true

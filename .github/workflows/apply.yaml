@@ -1,0 +1,21 @@
+name: Apply terraform plan
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    name: Apply terraform plan
+    init:
+      uses: WhiteTomX/microsoft-teams-apps-icebreaker/.github/workflows/init.yaml
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: terraform apply
+        uses: dflook/terraform-apply@v1
+        with:
+          path: my-terraform-config
