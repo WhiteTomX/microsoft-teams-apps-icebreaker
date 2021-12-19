@@ -7,9 +7,11 @@ jobs:
     name: Plan
     runs-on: Ubuntu-latest
     steps:
-      - name: init
-        uses: ./.github/actions/init.yaml
-      - name: terraform plan
-        uses: dflook/terraform-plan@v1
-        with:
-          path: ${{ env.TF_DIR }}
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: init
+      uses: ./.github/actions/init.yaml
+    - name: terraform plan
+      uses: dflook/terraform-plan@v1
+      with:
+        path: ${{ env.TF_DIR }}
