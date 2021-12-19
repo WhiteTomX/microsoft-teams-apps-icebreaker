@@ -5,7 +5,7 @@ on: [pull_request]
 jobs:
   plan:
     init:
-      uses: WhiteTomX/microsoft-teams-apps-icebreaker/.github/workflows/init.yaml
+      uses: WhiteTomX/microsoft-teams-apps-icebreaker/.github/workflows/init.yaml@ca0892ddb184f2bdb84caf6c699927e5ab1cf60d
     steps:
       - name: terraform plan
         uses: dflook/terraform-plan@v1
