@@ -37,7 +37,7 @@ resource "local_file" "manifest" {
       "full"  = var.description_long
     }
 
-    "accentColor" = "#64A2CC"
+    "accentColor" = "#1037A6"
 
     "bots" = [{
       "botId"              = azuread_application.icebreaker.application_id
