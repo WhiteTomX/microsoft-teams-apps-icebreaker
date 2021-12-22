@@ -39,12 +39,12 @@ resource "local_file" "manifest" {
 
     "accentColor" = "#64A2CC"
 
-    "bots" = {
+    "bots" = [{
       "botId"              = azuread_application.icebreaker.application_id
       "scopes"             = ["personal", "team"]
       "supportsFiles"      = false
       "isNotificationOnly" = true
-    }
+    }]
 
     "permissions"  = ["identity", "messageTeamMembers"]
     "validDomains" = [jsondecode(azurerm_resource_group_template_deployment.icebreaker.output_content).appDomain.value]
