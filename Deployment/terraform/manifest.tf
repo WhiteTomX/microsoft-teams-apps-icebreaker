@@ -10,7 +10,7 @@ resource "local_file" "manifest" {
     "$schema"         = "https://developer.microsoft.com/en-us/json-schemas/teams/v1.5/MicrosoftTeams.schema.json"
     "manifestVersion" = "1.5"
     "version"         = "1.0.0"
-    "id"              = "8d7f1194-606e-4006-b524-68f836a75022"
+    "id"              = azuread_application.icebreaker.application_id
     "packageName"     = "de.whitetom.zgm.icebreaker"
     "developer" = {
       "name"          = var.companyName
