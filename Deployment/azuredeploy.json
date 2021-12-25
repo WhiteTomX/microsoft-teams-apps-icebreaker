@@ -316,6 +316,10 @@
                             "name": "CosmosCollectionUsers",
                             "value": "UsersOptInStatus"
                         },
+						{
+                            "name": "CosmosCollectionQuestions",
+                            "value": "IcebreakerQuestions"
+                        },
                         {
                             "name": "MaxPairUpsPerTeam",
                             "value": "5000"
