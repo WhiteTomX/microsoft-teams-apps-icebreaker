@@ -377,6 +377,7 @@
     <Compile Include="Helpers\AdaptiveCards\AdaptiveCardBase.cs" />
     <Compile Include="Helpers\CardTemplateHelper.cs" />
     <Compile Include="Helpers\MatchingActions.cs" />
+    <Compile Include="Helpers\Question.cs" />
     <Compile Include="Helpers\SecretsHelper.cs" />
     <Compile Include="Interfaces\IMatchingService.cs" />
     <Compile Include="Interfaces\ISecretsHelper.cs" />
@@ -400,6 +401,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\QuestionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

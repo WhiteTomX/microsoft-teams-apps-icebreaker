@@ -209,6 +209,41 @@ namespace Icebreaker.Helpers
         }
 
         /// <summary>
+        /// Get all saved Questions.
+        /// </summary>
+        /// /// <param name="language">The language to get the questions in</param>
+        /// <returns>List of Questions</returns>
+        public async Task<string[]> GetQuestionsAsync(string language)
+        {
+            await this.EnsureInitializedAsync();
+
+            try
+            {
+                var documentUri = UriFactory.CreateDocumentUri(this.database.Id, this.questionsCollection.Id, language);
+                Question question = await this.documentClient.ReadDocumentAsync<Question>(documentUri, new RequestOptions { PartitionKey = new PartitionKey(language) });
+                return question.Questions;
+            }
+            catch (Exception ex)
+            {
+                this.telemetryClient.TrackException(ex.InnerException);
+                return null;
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task SetQuestionsAsync(string language, string[] questions)
+        {
+            await this.EnsureInitializedAsync();
+
+            var question = new Question
+            {
+                Language = language,
+                Questions = questions,
+            };
+            await this.documentClient.UpsertDocumentAsync(this.questionsCollection.SelfLink, question);
+        }
+
+        /// <summary>
         /// Initializes the database connection.
         /// </summary>
         /// <returns>Tracking task</returns>

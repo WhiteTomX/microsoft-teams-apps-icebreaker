@@ -88,38 +88,20 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to How are you?.
+        /// </summary>
+        public static string DefaultQuestion {
+            get {
+                return ResourceManager.GetString("DefaultQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Done.
         /// </summary>
         public static string DoneButtonText {
             get {
                 return ResourceManager.GetString("DoneButtonText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Icebreaker is a cute little bot that randomly pairs team members up every week to help the team build trust and personal connections..
-        /// </summary>
-        public static string EndUserManifestFullDescription {
-            get {
-                return ResourceManager.GetString("EndUserManifestFullDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Icebreaker is a bot that randomly pairs team members up to build team unity..
-        /// </summary>
-        public static string EndUserManifestShortDescription {
-            get {
-                return ResourceManager.GetString("EndUserManifestShortDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Icebreaker.
-        /// </summary>
-        public static string EndUserManifestShortName {
-            get {
-                return ResourceManager.GetString("EndUserManifestShortName", resourceCulture);
             }
         }
         

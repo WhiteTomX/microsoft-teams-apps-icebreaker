@@ -129,6 +129,10 @@
     <value>こんにちは</value>
     <comment>This is the greeting of the chat with matched member message</comment>
   </data>
+  <data name="DefaultQuestion" xml:space="preserve">
+    <value>元気ですか？</value>
+    <comment>This is the default question, used if none other is available.</comment>
+  </data>
   <data name="DoneButtonText" xml:space="preserve">
     <value>完了</value>
     <comment>This is the done button text</comment>
