@@ -268,6 +268,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ServicesTests\MatchingServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServicesTests\QuestionServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" />
