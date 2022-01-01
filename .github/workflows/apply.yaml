@@ -69,4 +69,4 @@ jobs:
       uses: azure/webapps-deploy@v2
       with: 
         app-name: ${{ needs.apply.outputs.app_service_name }}
-        package: 'Source/Icebreaker/bin'
+        package: '${{ GITHUB_WORKSPACE }}/out/_PublishedWebsites/Icebreaker'
