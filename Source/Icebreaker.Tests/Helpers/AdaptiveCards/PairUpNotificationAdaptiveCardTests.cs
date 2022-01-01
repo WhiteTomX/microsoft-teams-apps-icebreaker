@@ -1,14 +1,10 @@
-﻿using Xunit;
-using Icebreaker.Helpers.AdaptiveCards;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Bot.Schema.Teams;
-
-namespace Icebreaker.Helpers.AdaptiveCards.Tests
+﻿namespace Icebreaker.Helpers.AdaptiveCards.Tests
 {
+    using System;
+    using System.Collections.Generic;
+    using Microsoft.Bot.Schema.Teams;
+    using Xunit;
+
     public class PairUpNotificationAdaptiveCardTests
     {
         public static IEnumerable<object[]> GetNullTests()
