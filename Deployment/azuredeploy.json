@@ -168,22 +168,6 @@
             "metadata": {
                 "description": "Location for all resources."
             }
-        },
-        "gitRepoUrl": {
-            "type": "string",
-            "minLength": 1,
-            "defaultValue": "https://github.com/OfficeDev/microsoft-teams-icebreaker-app.git",
-            "metadata": {
-                "description": "The URL to the GitHub repository to deploy."
-            }
-        },
-        "gitBranch": {
-            "type": "string",
-            "minLength": 1,
-            "defaultValue": "main",
-            "metadata": {
-                "description": "The branch of the GitHub repository to deploy."
-            }
         }
     },
     "variables": {
