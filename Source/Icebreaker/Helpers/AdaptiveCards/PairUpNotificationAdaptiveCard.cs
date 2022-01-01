@@ -33,8 +33,9 @@ namespace Icebreaker.Helpers.AdaptiveCards
         /// <param name="sender">The user who will be sending this card.</param>
         /// <param name="recipient">The user who will be receiving this card.</param>
         /// <param name="botDisplayName">The bot display name.</param>
+        /// <param name="question">Icebreaker question</param>
         /// <returns>Pairup notification card</returns>
-        public static Attachment GetCard(string teamName, TeamsChannelAccount sender, TeamsChannelAccount recipient, string botDisplayName)
+        public static Attachment GetCard(string teamName, TeamsChannelAccount sender, TeamsChannelAccount recipient, string botDisplayName, string question)
         {
             // Set alignment of text based on default locale.
             var textAlignment = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft ? AdaptiveHorizontalAlignment.Right.ToString() : AdaptiveHorizontalAlignment.Left.ToString();
@@ -56,8 +57,9 @@ namespace Icebreaker.Helpers.AdaptiveCards
                 matchUpCardMatchedText = string.Format(Resources.MatchUpCardMatchedText, recipient.Name),
                 matchUpCardContentPart1 = string.Format(Resources.MatchUpCardContentPart1, botDisplayName, teamName, recipient.Name),
                 matchUpCardContentPart2 = Resources.MatchUpCardContentPart2,
+                MatchUpCardQuestion = string.Format(Resources.MatchUpCardQuestion, question),
                 chatWithMatchButtonText = string.Format(Resources.ChatWithMatchButtonText, recipientGivenName),
-                chatWithMessageGreeting = Uri.EscapeDataString(Resources.ChatWithMessageGreeting),
+                chatWithMessageGreeting = Uri.EscapeDataString(string.Format(Resources.ChatWithMessageGreeting, question)),
                 pauseMatchesButtonText = Resources.PausePairingsButtonText,
                 proposeMeetupButtonText = Resources.ProposeMeetupButtonText,
                 personUpn = recipientUpn,
