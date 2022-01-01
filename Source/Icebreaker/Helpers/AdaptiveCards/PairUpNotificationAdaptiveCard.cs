@@ -51,6 +51,10 @@ namespace Icebreaker.Helpers.AdaptiveCards
             {
                 throw new ArgumentNullException(nameof(recipient));
             }
+            else if (string.IsNullOrEmpty(recipient.UserPrincipalName))
+            {
+                throw new ArgumentException($"'{nameof(recipient.UserPrincipalName)}' cannot be null or empty", nameof(recipient));
+            }
 
             if (string.IsNullOrEmpty(botDisplayName))
             {

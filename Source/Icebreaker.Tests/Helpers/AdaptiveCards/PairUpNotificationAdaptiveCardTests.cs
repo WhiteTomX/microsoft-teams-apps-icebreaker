@@ -14,6 +14,7 @@
             yield return new object[] { "Team", new TeamsChannelAccount(), null,  "bot", "question" };
             yield return new object[] { "Team", new TeamsChannelAccount(), new TeamsChannelAccount(), null, "question" };
             yield return new object[] { "Team", new TeamsChannelAccount(), new TeamsChannelAccount(), "bot", null };
+            yield return new object[] { "Team", new TeamsChannelAccount(), new TeamsChannelAccount(), "bot", "question" };
         }
 
         /// <summary>

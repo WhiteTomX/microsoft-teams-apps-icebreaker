@@ -158,14 +158,14 @@ namespace Icebreaker.Tests.ServicesTests
                     {
                         Id = Guid.NewGuid().ToString(),
                         AadObjectId = Guid.NewGuid().ToString(),
-                        UserPrincipalName = string.Empty,
+                        UserPrincipalName = "Test@test.com",
                         Email = string.Empty,
                     },
                     new TeamsChannelAccount
                     {
                         Id = Guid.NewGuid().ToString(),
                         AadObjectId = Guid.NewGuid().ToString(),
-                        UserPrincipalName = string.Empty,
+                        UserPrincipalName = "Test@test.com",
                         Email = string.Empty,
                     },
                 }));
@@ -278,14 +278,14 @@ namespace Icebreaker.Tests.ServicesTests
                     {
                         Id = optedOutUserId,
                         AadObjectId = optedOutUserId,
-                        UserPrincipalName = string.Empty,
+                        UserPrincipalName = "Test@test.com",
                         Email = string.Empty,
                     },
                     new TeamsChannelAccount
                     {
                         Id = Guid.NewGuid().ToString(),
                         AadObjectId = Guid.NewGuid().ToString(),
-                        UserPrincipalName = string.Empty,
+                        UserPrincipalName = "Test@test.com",
                         Email = string.Empty,
                     },
                 }));
