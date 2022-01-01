@@ -37,6 +37,31 @@ namespace Icebreaker.Helpers.AdaptiveCards
         /// <returns>Pairup notification card</returns>
         public static Attachment GetCard(string teamName, TeamsChannelAccount sender, TeamsChannelAccount recipient, string botDisplayName, string question)
         {
+            if (string.IsNullOrEmpty(teamName))
+            {
+                throw new ArgumentException($"'{nameof(teamName)}' cannot be null or empty.", nameof(teamName));
+            }
+
+            if (sender is null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (recipient is null)
+            {
+                throw new ArgumentNullException(nameof(recipient));
+            }
+
+            if (string.IsNullOrEmpty(botDisplayName))
+            {
+                throw new ArgumentException($"'{nameof(botDisplayName)}' cannot be null or empty.", nameof(botDisplayName));
+            }
+
+            if (string.IsNullOrEmpty(question))
+            {
+                throw new ArgumentException($"'{nameof(question)}' cannot be null or empty.", nameof(question));
+            }
+
             // Set alignment of text based on default locale.
             var textAlignment = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft ? AdaptiveHorizontalAlignment.Right.ToString() : AdaptiveHorizontalAlignment.Left.ToString();
 
