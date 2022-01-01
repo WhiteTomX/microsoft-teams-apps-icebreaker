@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using global::AdaptiveCards;
     using Microsoft.Bot.Schema.Teams;
     using Xunit;
 
@@ -30,6 +31,20 @@
         public void GetCardNullTest(string teamName, TeamsChannelAccount account1, TeamsChannelAccount account2, string botDisplayName, string question)
         {
             Assert.ThrowsAny<ArgumentException>(() => PairUpNotificationAdaptiveCard.GetCard(teamName, account1, account2, botDisplayName, question));
+        }
+
+        [Fact]
+        public void GetCardWithQuestionTest()
+        {
+            var teamName = "Team";
+            var account1 = new TeamsChannelAccount() { UserPrincipalName = "test@test.com" };
+            var account2 = new TeamsChannelAccount() { UserPrincipalName = "test@test.com" };
+            var botDisplayName = "Bot";
+            var question = "questionsfdg24323";
+
+            var attachement = PairUpNotificationAdaptiveCard.GetCard(teamName, account1, account2, botDisplayName, question);
+
+            Assert.Contains(question, ((AdaptiveTextBlock)((AdaptiveContainer)((AdaptiveCard)attachement.Content).Body[1]).Items[3]).Text);
         }
     }
 }
