@@ -28,11 +28,11 @@
 
             var question = await this.questionService.GetRandomQuestion(this.defaultCulture);
 
-            Assert.Null(question);
+            Assert.Equal(Resources.DefaultQuestion, question);
         }
 
         /// <summary>
-        /// Should return Null if no questions are available
+        /// Should return Default Question if no questions are available
         /// </summary>
         [Fact]
         public async void GetRandomQuestionFromEmptyArrayTest()
@@ -42,7 +42,7 @@
 
             var question = await this.questionService.GetRandomQuestion(this.defaultCulture);
 
-            Assert.Null(question);
+            Assert.Equal(Resources.DefaultQuestion, question);
         }
 
         /// <summary>

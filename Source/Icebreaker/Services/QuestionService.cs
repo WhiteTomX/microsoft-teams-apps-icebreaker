@@ -42,7 +42,7 @@
             if (questions is null || questions.Length == 0)
             {
                 this.telemetryClient.TrackEvent("QuestionsNotFound", new Dictionary<string, string>() { { "cultureName", cultureName } });
-                return null;
+                return Resources.DefaultQuestion;
             }
             else
             {
