@@ -36,7 +36,7 @@
         /// </summary>
         /// <param name="cultureName">Language of Question</param>
         /// <returns>Question</returns>
-        public async Task<string> GetRandomQuestion(string cultureName)
+        public virtual async Task<string> GetRandomQuestion(string cultureName)
         {
             var questions = await this.RetrieveQuestions(cultureName);
             if (questions is null || questions.Length == 0)

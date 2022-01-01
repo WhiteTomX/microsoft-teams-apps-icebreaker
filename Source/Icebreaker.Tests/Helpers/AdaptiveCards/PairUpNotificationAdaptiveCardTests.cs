@@ -32,7 +32,7 @@ namespace Icebreaker.Helpers.AdaptiveCards.Tests
         [MemberData(nameof(GetNullTests))]
         public void GetCardNullTest(string teamName, TeamsChannelAccount account1, TeamsChannelAccount account2, string botDisplayName, string question)
         {
-            Assert.Throws<ArgumentNullException>(() => PairUpNotificationAdaptiveCard.GetCard(teamName, account1, account2, botDisplayName, question));
+            Assert.ThrowsAny<ArgumentException>(() => PairUpNotificationAdaptiveCard.GetCard(teamName, account1, account2, botDisplayName, question));
         }
     }
 }

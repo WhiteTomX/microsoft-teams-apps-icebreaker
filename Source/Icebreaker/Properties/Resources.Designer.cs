@@ -79,7 +79,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hi there.
+        ///   Looks up a localized string similar to Hi there, {0}.
         /// </summary>
         public static string ChatWithMessageGreeting {
             get {
@@ -192,6 +192,15 @@ namespace Icebreaker.Properties {
         public static string MatchUpCardMatchedText {
             get {
                 return ResourceManager.GetString("MatchUpCardMatchedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Need an Icebreaker? How about asking *{0}*.
+        /// </summary>
+        public static string MatchUpCardQuestion {
+            get {
+                return ResourceManager.GetString("MatchUpCardQuestion", resourceCulture);
             }
         }
         

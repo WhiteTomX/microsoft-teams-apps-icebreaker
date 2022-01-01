@@ -29,6 +29,7 @@ namespace Icebreaker.Tests.ServicesTests
         private readonly IMatchingService sut;
         private readonly TestAdapter botAdapter;
         private readonly Mock<IBotDataProvider> dataProvider;
+        private readonly Mock<QuestionService> questionService;
         private readonly Mock<ConversationHelper> conversationHelper;
         private readonly string maxPairsSettingsKey = "MaxPairUpsPerTeam";
 
@@ -55,7 +56,11 @@ namespace Icebreaker.Tests.ServicesTests
             this.dataProvider = new Mock<IBotDataProvider>();
             this.dataProvider.Setup(x => x.GetInstalledTeamAsync(It.IsAny<string>()))
                 .Returns(() => Task.FromResult(new TeamInstallInfo()));
-            this.sut = new MatchingService(this.dataProvider.Object, this.conversationHelper.Object, telemetryClient, this.botAdapter);
+
+            this.questionService = new Mock<QuestionService>(MockBehavior.Loose, this.dataProvider.Object, telemetryClient);
+            this.questionService.Setup(x => x.GetRandomQuestion(It.IsAny<string>())).Returns(() => Task.FromResult("question"));
+
+            this.sut = new MatchingService(this.dataProvider.Object, this.conversationHelper.Object, this.questionService.Object, telemetryClient, this.botAdapter);
         }
 
         [Fact]
@@ -341,7 +346,7 @@ namespace Icebreaker.Tests.ServicesTests
 
             var maxPairUpsPerTeam = ConfigurationManager.AppSettings[this.maxPairsSettingsKey];
             ConfigurationManager.AppSettings[this.maxPairsSettingsKey] = "0";
-            var sut = new MatchingService(this.dataProvider.Object, this.conversationHelper.Object, new TelemetryClient(), this.botAdapter);
+            var sut = new MatchingService(this.dataProvider.Object, this.conversationHelper.Object, this.questionService.Object, new TelemetryClient(), this.botAdapter);
 
             // Act
 
