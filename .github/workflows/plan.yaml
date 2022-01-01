@@ -31,4 +31,4 @@ jobs:
     - name: build
       uses: ./.github/actions/build
       with:
-        source_dir: Source
+        source_path: Source

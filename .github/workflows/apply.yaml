@@ -45,7 +45,7 @@ jobs:
     - name: build
       uses: ./.github/actions/build
       with:
-        source_dir: Source
+        source_path: Source
     - uses: azure/login@v1
       with:
         creds: |
