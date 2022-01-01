@@ -32,11 +32,11 @@
         }
 
         /// <summary>
-        /// Select a random question.
+        /// Select a random question from Database in given Language or the Default Language.
         /// </summary>
         /// <param name="cultureName">Language of Question</param>
         /// <returns>Question</returns>
-        public virtual async Task<string> GetRandomQuestion(string cultureName)
+        public virtual async Task<string> GetRandomOrDefaultQuestion(string cultureName)
         {
             var questions = await this.RetrieveQuestions(cultureName);
             if (questions is null || questions.Length == 0)

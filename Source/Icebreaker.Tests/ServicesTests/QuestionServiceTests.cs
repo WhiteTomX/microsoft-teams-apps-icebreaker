@@ -26,7 +26,7 @@
             this.dataProvider.Setup(x => x.GetQuestionsAsync(It.IsAny<string>()))
                 .Returns(() => Task.FromResult<string[]>(null));
 
-            var question = await this.questionService.GetRandomQuestion(this.defaultCulture);
+            var question = await this.questionService.GetRandomOrDefaultQuestion(this.defaultCulture);
 
             Assert.Equal(Resources.DefaultQuestion, question);
         }
@@ -40,7 +40,7 @@
             this.dataProvider.Setup(x => x.GetQuestionsAsync(It.IsAny<string>()))
                 .Returns(() => Task.FromResult(new string[0]));
 
-            var question = await this.questionService.GetRandomQuestion(this.defaultCulture);
+            var question = await this.questionService.GetRandomOrDefaultQuestion(this.defaultCulture);
 
             Assert.Equal(Resources.DefaultQuestion, question);
         }
@@ -55,7 +55,7 @@
             this.dataProvider.Setup(x => x.GetQuestionsAsync(It.IsAny<string>()))
                 .Returns(() => Task.FromResult(new string[] { question }));
 
-            var randomQuestion = await this.questionService.GetRandomQuestion(this.defaultCulture);
+            var randomQuestion = await this.questionService.GetRandomOrDefaultQuestion(this.defaultCulture);
 
             Assert.Equal(question, randomQuestion);
         }
@@ -70,7 +70,7 @@
             this.dataProvider.Setup(x => x.GetQuestionsAsync(It.IsAny<string>()))
                 .Returns(() => Task.FromResult(questions));
 
-            var randomQuestion = await this.questionService.GetRandomQuestion(this.defaultCulture);
+            var randomQuestion = await this.questionService.GetRandomOrDefaultQuestion(this.defaultCulture);
 
             Assert.Contains(randomQuestion, questions);
         }

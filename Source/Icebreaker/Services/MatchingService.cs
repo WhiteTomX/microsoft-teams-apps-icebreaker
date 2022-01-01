@@ -147,10 +147,10 @@ namespace Icebreaker.Services
             var teamsPerson2 = JObject.FromObject(pair.Item2).ToObject<TeamsChannelAccount>();
 
             // Fill in person2's info in the card for person1
-            var cardForPerson1 = PairUpNotificationAdaptiveCard.GetCard(teamName, teamsPerson1, teamsPerson2, this.botDisplayName, await this.questionService.GetRandomQuestion(cultureName));
+            var cardForPerson1 = PairUpNotificationAdaptiveCard.GetCard(teamName, teamsPerson1, teamsPerson2, this.botDisplayName, await this.questionService.GetRandomOrDefaultQuestion(cultureName));
 
             // Fill in person1's info in the card for person2
-            var cardForPerson2 = PairUpNotificationAdaptiveCard.GetCard(teamName, teamsPerson2, teamsPerson1, this.botDisplayName, await this.questionService.GetRandomQuestion(cultureName));
+            var cardForPerson2 = PairUpNotificationAdaptiveCard.GetCard(teamName, teamsPerson2, teamsPerson1, this.botDisplayName, await this.questionService.GetRandomOrDefaultQuestion(cultureName));
 
             // Send notifications and return the number that was successful
             var notifyResults = await Task.WhenAll(

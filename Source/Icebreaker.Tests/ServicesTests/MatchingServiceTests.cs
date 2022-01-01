@@ -58,7 +58,7 @@ namespace Icebreaker.Tests.ServicesTests
                 .Returns(() => Task.FromResult(new TeamInstallInfo()));
 
             this.questionService = new Mock<QuestionService>(MockBehavior.Loose, this.dataProvider.Object, telemetryClient);
-            this.questionService.Setup(x => x.GetRandomQuestion(It.IsAny<string>())).Returns(() => Task.FromResult("question"));
+            this.questionService.Setup(x => x.GetRandomOrDefaultQuestion(It.IsAny<string>())).Returns(() => Task.FromResult("question"));
 
             this.sut = new MatchingService(this.dataProvider.Object, this.conversationHelper.Object, this.questionService.Object, telemetryClient, this.botAdapter);
         }
