@@ -277,6 +277,15 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Report Inactive.
+        /// </summary>
+        public static string ReportInactiveButtonText {
+            get {
+                return ResourceManager.GetString("ReportInactiveButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resume matches.
         /// </summary>
         public static string ResumePairingsButtonText {
