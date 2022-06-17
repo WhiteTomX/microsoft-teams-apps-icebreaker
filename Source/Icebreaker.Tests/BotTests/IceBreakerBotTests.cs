@@ -243,7 +243,7 @@ namespace Icebreaker.Tests.BotTests
                 Times.Exactly(0));
         }
 
-        [Fact]
+        [Fact] // ToDo
         public async Task NewBotMessage_OnTeamRemoved_TeamUpdatedInDb()
         {
             // Arrange: Create activity
