@@ -54,12 +54,12 @@
     },
     {
       "type": "Action.Submit",
-      "title": "${pauseMatchesText}",
+      "title": "${optInButtonText}",
       "data": {
         "msteams": {
           "type": "messageBack",
-          "displayText": "${pauseMatchesText}",
-          "text": "optout"
+          "displayText": "${optInButtonText}",
+          "text": "optin"
         }
       }
     }
