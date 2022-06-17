@@ -177,7 +177,7 @@ namespace Icebreaker.Services
                 .Where(member =>
                 {
                     var memberObjectId = this.GetChannelUserObjectId(member);
-                    return !dbMembersLookup.ContainsKey(memberObjectId) || dbMembersLookup[memberObjectId];
+                    return dbMembersLookup.ContainsKey(memberObjectId) && dbMembersLookup[memberObjectId];
                 })
                 .ToList();
         }
