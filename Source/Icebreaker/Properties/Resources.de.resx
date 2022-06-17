@@ -283,11 +283,11 @@
         <comment>This is the title of the tour for the Icebreaker Bot</comment>
     </data>
     <data name="OptInButtonText" xml:space="preserve">
-        <value>Akzeptieren </value>
+        <value>Datenschutzhinweise Akzeptieren</value>
         <comment>This is the title of OptIn</comment>
     </data>
     <data name="OptInText" xml:space="preserve">
-        <value>Um teilzunehmen musst du die Datenschutzhinweise akzeptieren.</value>
+        <value>**Um teilzunehmen, musst du die Datenschutzhinweise akzeptieren.**</value>
         <comment>This is the Text fpr OptIn</comment>
     </data>
 </root>

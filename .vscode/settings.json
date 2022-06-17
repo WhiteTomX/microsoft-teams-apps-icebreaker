@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/c9e535c7-1fe4-422b-a1b5-145b64604b18/microsoft.web/sites/subscriptions/c9e535c7-1fe4-422b-a1b5-145b64604b18/resourceGroups/rg-Icebreaker-dev-01/providers/Microsoft.Web/sites/icebreaker-jo2lpcrmdqtji",
+    "appService.deploySubpath": "Source\\Icebreaker\\out\\_PublishedWebsites\\Icebreaker"
+}
