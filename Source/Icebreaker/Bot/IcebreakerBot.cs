@@ -150,11 +150,13 @@ namespace Icebreaker.Bot
 
                     if (member.Id == myBotId) // bot wurde team hinzugefügt               
                     {
-                        var members = await this.conversationHelper.GetTeamMembers(this.botAdapter, teamsChannelData.Team.TeamInfo);
 
-                        foreach (var member in members) // evtl. 158 if ? meber id = bot id ausschließen
+                        // this.botAdapter, teamInfo
+                        var teamMembers = await this.conversationHelper.GetTeamMembers(message.ServiceUrl, teamId);
+
+                        foreach (var teamMember in teamMembers) // evtl. 158 if ? meber id = bot id ausschließen
                         {
-                            await this.WelcomeUser(turnContext, member.Id, teamsChannelData.Tenant.Id, teamsChannelData.Team.Id, cancellationToken);
+                         await this.WelcomeUser(turnContext, teamMember.Id, teamsChannelData.Tenant.Id, teamsChannelData.Team.Id, cancellationToken);
                         }
 
                         this.telemetryClient.TrackTrace($"Bot installed to team {teamId}");

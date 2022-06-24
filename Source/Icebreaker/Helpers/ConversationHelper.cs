@@ -27,18 +27,20 @@ namespace Icebreaker.Helpers
         private readonly TelemetryClient telemetryClient;
         private readonly string botId;
         private readonly bool isTesting;
+        private readonly BotAdapter botAdapter;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConversationHelper"/> class.
         /// </summary>
         /// <param name="appCredentials">Microsoft app credentials to use.</param>
         /// <param name="telemetryClient">The telemetry client to use</param>
-        public ConversationHelper(MicrosoftAppCredentials appCredentials, TelemetryClient telemetryClient)
+        public ConversationHelper(MicrosoftAppCredentials appCredentials, TelemetryClient telemetryClient, BotAdapter botAdapter)
         {
             this.appCredentials = appCredentials;
             this.telemetryClient = telemetryClient;
             this.botId = CloudConfigurationManager.GetSetting("MicrosoftAppId");
             this.isTesting = Convert.ToBoolean(CloudConfigurationManager.GetSetting("Testing"));
+            this.botAdapter = botAdapter;
         }
 
         /// <summary>
@@ -156,7 +158,7 @@ namespace Icebreaker.Helpers
         public virtual async Task<string> GetTeamNameByIdAsync(BotAdapter botAdapter, TeamInstallInfo teamInfo)
         {
             TeamDetails teamDetails = null;
-            await this.ExecuteInNewTurnContext(botAdapter, teamInfo, async (newTurnContext, newCancellationToken) =>
+            await this.ExecuteInNewTurnContext(botAdapter, teamInfo.ServiceUrl, teamInfo.TeamId, async (newTurnContext, newCancellationToken) =>
             {
                 teamDetails = await this.GetTeamDetailsAsync(newTurnContext, teamInfo.TeamId, newCancellationToken);
             });
@@ -166,18 +168,18 @@ namespace Icebreaker.Helpers
         /// <summary>
         /// Get team members.
         /// </summary>
-        /// <param name="botAdapter">Bot adapter.</param>
-        /// <param name="teamInfo">The team that the bot has been installed to</param>
+        /// <param name="serviceUrl">Team serviceUrl</param>
+        /// <param name="teamId">Id from TeamId</param>
         /// <returns>List of team members channel accounts</returns>
-        public virtual async Task<IList<ChannelAccount>> GetTeamMembers(BotAdapter botAdapter, TeamInstallInfo teamInfo)
+        public virtual async Task<IList<ChannelAccount>> GetTeamMembers(string serviceUrl, string teamId)
         {
             var members = new List<ChannelAccount>();
-            await this.ExecuteInNewTurnContext(botAdapter, teamInfo, async (turnContext, cancellationToken) =>
+            await this.ExecuteInNewTurnContext(this.botAdapter, serviceUrl, teamId, async (turnContext, cancellationToken) =>
             {
                 string continuationToken = null;
                 do
                 {
-                    var pagedResult = await TeamsInfo.GetPagedTeamMembersAsync(turnContext, teamInfo.TeamId, continuationToken, pageSize: 500);
+                    var pagedResult = await TeamsInfo.GetPagedTeamMembersAsync(turnContext, teamId, continuationToken, pageSize: 500);
                     continuationToken = pagedResult.ContinuationToken;
                     if (pagedResult.Members != null)
                     {
@@ -193,17 +195,18 @@ namespace Icebreaker.Helpers
         /// Create a new turn context and execute callback parameter to do desired function
         /// </summary>
         /// <param name="botAdapter">Bot adapter.</param>
-        /// <param name="teamInfo">The team that the bot has been installed to</param>
+        /// <param name="serviceUrl">serviceUrl of Team</param>
+        /// <param name="teamId">Id of Team</param>
         /// <param name="callback">The method to call for the resulting bot turn.</param>
         /// <returns>A task that represents the work queued to execute.</returns>
-        private async Task ExecuteInNewTurnContext(BotAdapter botAdapter, TeamInstallInfo teamInfo, BotCallbackHandler callback)
+        private async Task ExecuteInNewTurnContext(BotAdapter botAdapter, String serviceUrl, String teamId, BotCallbackHandler callback)
         {
             var conversationReference = new ConversationReference
             {
-                ServiceUrl = teamInfo.ServiceUrl,
+                ServiceUrl = serviceUrl,
                 Conversation = new ConversationAccount
                 {
-                    Id = teamInfo.TeamId,
+                    Id = teamId,
                 },
             };
 
