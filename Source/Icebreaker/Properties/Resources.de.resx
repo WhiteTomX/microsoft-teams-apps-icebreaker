@@ -155,7 +155,7 @@
         <comment>Part 2 of the install message when the name of the installer is known</comment>
     </data>
     <data name="InstallMessageKnownInstallerPart3" xml:space="preserve">
-    <value>**Um neue Leute kennenzulernen, bleib einfach dran. Ich werde dir bald eine Einladung senden.**</value>
+    <value>**Um neue Leute kennenzulernen, bleib einfach dran. Ich werde dir bald eine Einladung senden.[Datenschutzhinweise](https://www.qbeyond.de/)**</value>
     <comment>Part 3 of the install message with the name of the installer known</comment>
     </data>
     <data name="InstallMessageUnknownInstallerPart1" xml:space="preserve">

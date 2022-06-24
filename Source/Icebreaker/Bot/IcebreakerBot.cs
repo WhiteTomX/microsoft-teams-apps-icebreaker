@@ -136,6 +136,8 @@ namespace Icebreaker.Bot
         /// </remarks>
         protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
         {
+
+
             if (membersAdded?.Count() > 0)
             {
                 var message = turnContext.Activity;
@@ -145,8 +147,16 @@ namespace Icebreaker.Bot
 
                 foreach (var member in membersAdded)
                 {
-                    if (member.Id == myBotId)
+
+                    if (member.Id == myBotId) // bot wurde team hinzugefügt               
                     {
+                        var members = await this.conversationHelper.GetTeamMembers(this.botAdapter, teamsChannelData.Team.TeamInfo);
+
+                        foreach (var member in members) // evtl. 158 if ? meber id = bot id ausschließen
+                        {
+                            await this.WelcomeUser(turnContext, member.Id, teamsChannelData.Tenant.Id, teamsChannelData.Team.Id, cancellationToken);
+                        }
+
                         this.telemetryClient.TrackTrace($"Bot installed to team {teamId}");
 
                         var properties = new Dictionary<string, string>
