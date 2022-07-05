@@ -40,7 +40,7 @@ resource "azurerm_resource_group_template_deployment" "icebreaker" {
   name                = "icebreaker-deployment"
   deployment_mode     = "Complete"
   resource_group_name = data.azurerm_resource_group.icebreaker.name
-  template_content    = file("../azuredeploy.json")
+  template_content    = file("./Deployment/azuredeploy.json")
   parameters_content = jsonencode(
     { for parameter, value in local.arm_parameters : parameter => {
       value = value
