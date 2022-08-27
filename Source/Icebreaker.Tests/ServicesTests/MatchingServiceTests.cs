@@ -1,4 +1,4 @@
-﻿// <copyright file="MatchingServiceTests.cs" company="Microsoft">
+// <copyright file="MatchingServiceTests.cs" company="Microsoft">
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 // </copyright>
@@ -136,7 +136,7 @@ namespace Icebreaker.Tests.ServicesTests
         }
 
         [Fact]
-        public async Task MatchPairs_MultipleMembersExist_PairsGenerated()
+        public async Task MatchPairs_MultipleMembersExist_NoPairsGenerated()
         {
             // Arrange
             this.dataProvider.Setup(x => x.GetInstalledTeamsAsync())
@@ -146,7 +146,7 @@ namespace Icebreaker.Tests.ServicesTests
                     new TeamInstallInfo { TeamId = Guid.NewGuid().ToString() },
                 }));
 
-            // No user opted-out
+            // No user opted-in
             this.dataProvider.Setup(x => x.GetAllUsersOptInStatusAsync())
                 .Returns(() => Task.FromResult(new Dictionary<string, bool>()));
 
@@ -187,7 +187,7 @@ namespace Icebreaker.Tests.ServicesTests
             this.conversationHelper.Verify(m => m.GetTeamMembers(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
 
             // 2 groups are paired (1 group per team)
-            Assert.Equal(2, pairsNotifiedCount);
+            Assert.Equal(0, pairsNotifiedCount);
         }
 
         [Fact]
@@ -202,12 +202,14 @@ namespace Icebreaker.Tests.ServicesTests
                 }));
 
             var optedOutUserId = Guid.NewGuid().ToString();
+            var optedInUserId = Guid.NewGuid().ToString();
 
             // No user opted-out
             this.dataProvider.Setup(x => x.GetAllUsersOptInStatusAsync())
                 .Returns(() => Task.FromResult(new Dictionary<string, bool>
                 {
                     { optedOutUserId, false },
+                    { optedInUserId, true },
                 }));
 
             // 2 members exist in each team
@@ -223,8 +225,8 @@ namespace Icebreaker.Tests.ServicesTests
                     },
                     new TeamsChannelAccount
                     {
-                        Id = Guid.NewGuid().ToString(),
-                        AadObjectId = Guid.NewGuid().ToString(),
+                        Id = optedInUserId,
+                        AadObjectId = optedInUserId,
                         UserPrincipalName = string.Empty,
                         Email = string.Empty,
                     },
@@ -261,13 +263,14 @@ namespace Icebreaker.Tests.ServicesTests
                     new TeamInstallInfo { TeamId = Guid.NewGuid().ToString() },
                 }));
 
-            var optedOutUserId = Guid.NewGuid().ToString();
+            var optedInUserIds = new string[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
 
             // No user opted-out
             this.dataProvider.Setup(x => x.GetAllUsersOptInStatusAsync())
                 .Returns(() => Task.FromResult(new Dictionary<string, bool>
                 {
-                    { optedOutUserId, true },
+                    { optedInUserIds[0], true },
+                    { optedInUserIds[1], true },
                 }));
 
             // 2 members exist in each team
@@ -276,15 +279,15 @@ namespace Icebreaker.Tests.ServicesTests
                 {
                     new TeamsChannelAccount
                     {
-                        Id = optedOutUserId,
-                        AadObjectId = optedOutUserId,
+                        Id = optedInUserIds[0],
+                        AadObjectId = optedInUserIds[0],
                         UserPrincipalName = "Test@test.com",
                         Email = string.Empty,
                     },
                     new TeamsChannelAccount
                     {
-                        Id = Guid.NewGuid().ToString(),
-                        AadObjectId = Guid.NewGuid().ToString(),
+                        Id = optedInUserIds[1],
+                        AadObjectId = optedInUserIds[1],
                         UserPrincipalName = "Test@test.com",
                         Email = string.Empty,
                     },
