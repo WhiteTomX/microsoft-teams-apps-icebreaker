@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.Web.LibraryManager.Build.2.1.113\build\Microsoft.Web.LibraryManager.Build.props" Condition="Exists('..\packages\Microsoft.Web.LibraryManager.Build.2.1.113\build\Microsoft.Web.LibraryManager.Build.props')" />
+  <Import Project="..\packages\Microsoft.Web.LibraryManager.Build.2.1.175\build\Microsoft.Web.LibraryManager.Build.props" Condition="Exists('..\packages\Microsoft.Web.LibraryManager.Build.2.1.175\build\Microsoft.Web.LibraryManager.Build.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -76,7 +76,7 @@
       <HintPath>..\packages\Azure.Security.KeyVault.Secrets.4.1.0\lib\netstandard2.0\Azure.Security.KeyVault.Secrets.dll</HintPath>
     </Reference>
     <Reference Include="Chronic, Version=0.3.2.0, Culture=neutral, PublicKeyToken=3bd1f1ef638b0d3c, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\Chronic.Signed.0.3.2\lib\net40\Chronic.dll</HintPath>
+      <HintPath>..\packages\Chronic.Signed.0.3.2\lib\net40\Chronic.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
@@ -171,7 +171,6 @@
     </Reference>
     <Reference Include="Microsoft.IdentityModel.Protocol.Extensions, Version=1.0.40306.1554, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Protocol.Extensions.1.0.4.403061554\lib\net45\Microsoft.IdentityModel.Protocol.Extensions.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.IdentityModel.Protocols, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Protocols.5.6.0\lib\net461\Microsoft.IdentityModel.Protocols.dll</HintPath>
@@ -196,10 +195,10 @@
     </Reference>
     <Reference Include="Microsoft.Win32.Primitives" />
     <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\Microsoft.WindowsAzure.ConfigurationManager.3.1.0\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.1.0\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Polly, Version=5.3.1.0, Culture=neutral, PublicKeyToken=c8a3ffc3f8f825cc, processorArchitecture=MSIL">
       <HintPath>..\packages\Polly-Signed.5.3.1\lib\net45\Polly.dll</HintPath>
@@ -222,7 +221,6 @@
     </Reference>
     <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
-      <Private>True</Private>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.IO.Compression" />
@@ -253,7 +251,6 @@
     <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
       <Private>True</Private>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -267,16 +264,13 @@
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
       <Private>True</Private>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
       <Private>True</Private>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
-      <Private>True</Private>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Security.Cryptography.ProtectedData, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -285,10 +279,10 @@
     <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
       <Private>True</Private>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Text.Encodings.Web, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Encodings.Web.4.6.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+      <HintPath>..\packages\System.Text.Encodings.Web.4.7.2\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Text.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Json.4.6.0\lib\net461\System.Text.Json.dll</HintPath>
@@ -401,9 +395,6 @@
     <Compile Include="Services\QuestionService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Helpers\AdaptiveCards\PairUpNotificationAdaptiveCard.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -424,6 +415,7 @@
     <Content Include="..\.editorconfig">
       <Link>.editorconfig</Link>
     </Content>
+    <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -484,20 +476,20 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Azure.DocumentDB.2.13.1\build\Microsoft.Azure.DocumentDB.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Azure.DocumentDB.2.13.1\build\Microsoft.Azure.DocumentDB.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Web.LibraryManager.Build.2.1.113\build\Microsoft.Web.LibraryManager.Build.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.LibraryManager.Build.2.1.113\build\Microsoft.Web.LibraryManager.Build.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Web.LibraryManager.Build.2.1.113\build\Microsoft.Web.LibraryManager.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.LibraryManager.Build.2.1.113\build\Microsoft.Web.LibraryManager.Build.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Web.LibraryManager.Build.2.1.175\build\Microsoft.Web.LibraryManager.Build.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.LibraryManager.Build.2.1.175\build\Microsoft.Web.LibraryManager.Build.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Web.LibraryManager.Build.2.1.175\build\Microsoft.Web.LibraryManager.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.LibraryManager.Build.2.1.175\build\Microsoft.Web.LibraryManager.Build.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.15.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.15.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.15.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.15.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.15.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.15.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.2.15.0\build\Microsoft.ApplicationInsights.WindowsServer.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.WindowsServer.2.15.0\build\Microsoft.ApplicationInsights.WindowsServer.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.Web.2.15.0\build\Microsoft.ApplicationInsights.Web.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.Web.2.15.0\build\Microsoft.ApplicationInsights.Web.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Azure.DocumentDB.2.13.1\build\Microsoft.Azure.DocumentDB.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Azure.DocumentDB.2.13.1\build\Microsoft.Azure.DocumentDB.targets'))" />
   </Target>
-  <Import Project="..\packages\Microsoft.Azure.DocumentDB.2.13.1\build\Microsoft.Azure.DocumentDB.targets" Condition="Exists('..\packages\Microsoft.Azure.DocumentDB.2.13.1\build\Microsoft.Azure.DocumentDB.targets')" />
-  <Import Project="..\packages\Microsoft.Web.LibraryManager.Build.2.1.113\build\Microsoft.Web.LibraryManager.Build.targets" Condition="Exists('..\packages\Microsoft.Web.LibraryManager.Build.2.1.113\build\Microsoft.Web.LibraryManager.Build.targets')" />
+  <Import Project="..\packages\Microsoft.Web.LibraryManager.Build.2.1.175\build\Microsoft.Web.LibraryManager.Build.targets" Condition="Exists('..\packages\Microsoft.Web.LibraryManager.Build.2.1.175\build\Microsoft.Web.LibraryManager.Build.targets')" />
   <Import Project="..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.15.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.15.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets')" />
   <Import Project="..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.15.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.15.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets')" />
   <Import Project="..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.15.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.15.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
   <Import Project="..\packages\Microsoft.ApplicationInsights.WindowsServer.2.15.0\build\Microsoft.ApplicationInsights.WindowsServer.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.2.15.0\build\Microsoft.ApplicationInsights.WindowsServer.targets')" />
   <Import Project="..\packages\Microsoft.ApplicationInsights.Web.2.15.0\build\Microsoft.ApplicationInsights.Web.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.Web.2.15.0\build\Microsoft.ApplicationInsights.Web.targets')" />
+  <Import Project="..\packages\Microsoft.Azure.DocumentDB.2.13.1\build\Microsoft.Azure.DocumentDB.targets" Condition="Exists('..\packages\Microsoft.Azure.DocumentDB.2.13.1\build\Microsoft.Azure.DocumentDB.targets')" />
 </Project>
