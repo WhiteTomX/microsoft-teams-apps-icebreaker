@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
+    <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,226 +59,234 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
             <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="BackButtonText" xml:space="preserve">
-    <value>Back</value>
-    <comment>This is the back button text</comment>
-  </data>
-  <data name="ChatWithMatchButtonText" xml:space="preserve">
-    <value>Chat with {0}</value>
-    <comment>Button text to initiate a chat with the person the user has been matched up with</comment>
-  </data>
-  <data name="ChatWithMessageGreeting" xml:space="preserve">
-    <value>Hi there, {0}</value>
-    <comment>This is the greeting of the chat with matched member message, {0} is a random selected question</comment>
-  </data>
-  <data name="DefaultQuestion" xml:space="preserve">
-    <value>How are you?</value>
-    <comment>This is the default question, used if none other is available.</comment>
-  </data>
-  <data name="DoneButtonText" xml:space="preserve">
-    <value>Done</value>
-    <comment>This is the done button text</comment>
-  </data>
-  <data name="ErrorOccured" xml:space="preserve">
-    <value>There was an error while processing request. Retry?</value>
-    <comment>A generic message that is sent when there is an error occurring</comment>
-  </data>
-  <data name="Failure" xml:space="preserve">
-    <value>Sorry! An error has occurred. Please try again, and if the problem persists, contact your admin.</value>
-    <comment>Generic ErrorMessage to send to User in case of an error.</comment>
-  </data>
-  <data name="InstallMessageKnownInstallerPart1" xml:space="preserve">
-    <value>If you're reading this, it's most likely because {0} added me to the **{1} Team.**</value>
-    <comment>Install message and also the welcome message when the app installer is known - {0} is the placeholder for the name of the user that has installed the app to the team, and {1} is the placeholder for the name of the team that the app has been installed to</comment>
-  </data>
-  <data name="InstallMessageKnownInstallerPart2" xml:space="preserve">
-    <value>I get to help you meet more people around your organization by randomly pairing you with someone new every week. You get to make more friends and learn about the people you work with. It's a win-win-*win* situation.</value>
-    <comment>Part 2 of the install message when the name of the installer is known</comment>
-  </data>
-  <data name="InstallMessageKnownInstallerPart3" xml:space="preserve">
-    <value>**To meet new people, just hang tight. I'll send you an invite soon.**</value>
-    <comment>Part 3 of the install message with the name of the installer known</comment>
-  </data>
-  <data name="InstallMessageUnknownInstallerPart1" xml:space="preserve">
-    <value>If you're reading this, it's because I was installed to **{0} Team.** </value>
-    <comment>Install message and also the welcome message when the app installer is not known - {0} is the placeholder for the name of the team that the app has been installed to</comment>
-  </data>
-  <data name="InstallMessageUnknownInstallerPart2" xml:space="preserve">
-    <value>I get to help you meet more people around your organization by randomly pairing you with someone new every week. You get to make more friends and learn about the people you work with. It's a win-win-*win* situation.</value>
-    <comment>Part 2 of the install message when the name of the installer is not known</comment>
-  </data>
-  <data name="InstallMessageUnknownInstallerPart3" xml:space="preserve">
-    <value>**To meet new people, just hang tight. I'll send you an invite soon.**</value>
-    <comment>Part 3 of the install message when the name of the installer is not known</comment>
-  </data>
-  <data name="MatchUpCardContentPart1" xml:space="preserve">
-    <value>Hi there again, I'm {0} in {1}. A bot that pairs you with a new coworker to meet each week. This week your match is {2}.</value>
-    <comment>First part of the match up card main content</comment>
-  </data>
-  <data name="MatchUpCardContentPart2" xml:space="preserve">
-    <value>If you've got the inclination, set something up. See, meeting people *is* easy!</value>
-    <comment>Second part of the match up card main content</comment>
-  </data>
-  <data name="MatchUpCardMatchedText" xml:space="preserve">
-    <value>You've been matched with {0}.</value>
-    <comment>The text saying who the user has been matched up with</comment>
-  </data>
-  <data name="MatchUpCardQuestion" xml:space="preserve">
-    <value>Need an Icebreaker? How about asking *{0}*</value>
-    <comment>The text for a icebreaker. {0} is a randomly selectected question.</comment>
-  </data>
-  <data name="MatchUpCardTitleContent" xml:space="preserve">
-    <value>It's time for a match!</value>
-    <comment>The title text for the pairup notification adaptive card</comment>
-  </data>
-  <data name="MeetupContent" xml:space="preserve">
-    <value>Hey there, looks like we've been matched by {0} this week. It'd be great to meet up for a coffee or a lunch or a call if you've got time.</value>
-    <comment>Content of the Meetup for the propose meeting</comment>
-  </data>
-  <data name="MeetupTitle" xml:space="preserve">
-    <value>{0} / {1} Meet up</value>
-    <comment>The title for the Meetup - {0} is the name of the first person that user has been matched with and {1} is the name of the user</comment>
-  </data>
-  <data name="NextButtonText" xml:space="preserve">
-    <value>Next</value>
-    <comment>This is the next button text</comment>
-  </data>
-  <data name="OptInConfirmation" xml:space="preserve">
-    <value>Welcome back! You've been missed. I've restarted your matches. Have fun!</value>
-    <comment>The confirmation reply that is sent when the user resumes the matches</comment>
-  </data>
-  <data name="OptOutConfirmation" xml:space="preserve">
-    <value>All set. I've paused your matches. You can turn them back on whenever you like.</value>
-    <comment>The confirmation reply that is sent when the user pauses all matches</comment>
-  </data>
-  <data name="OptOutForcedConfirmation" xml:space="preserve">
-    <value>You have been flagged as incative and thus won't receive any new matches. You can turn them back on whenever you like.</value>
-    <comment>Text to inform the user that they got flagged as inactive match</comment>
-  </data>
-  <data name="PausePairingsButtonText" xml:space="preserve">
-    <value>Pause all matches</value>
-    <comment>Button text to pause pairings</comment>
-  </data>
-  <data name="ProposeMeetupButtonText" xml:space="preserve">
-    <value>Propose meetup</value>
-    <comment>Button text to propose the meetup with the match of the user</comment>
-  </data>
-  <data name="ReportInactiveButtonText" xml:space="preserve">
-    <value>Report Inactive</value>
-    <comment>Button text to report as Inactive</comment>
-  </data>
-  <data name="ReportInactiveConfirmButtonText" xml:space="preserve">
-    <value>Confirm</value>
-    <comment>Text of Button to confirm inactive report</comment>
-  </data>
-  <data name="ReportInactiveConfirmedOptOutText" xml:space="preserve">
-    <value>The person is opted out of Matches.</value>
-    <comment>Text to confirm opt out after reporting inactive</comment>
-  </data>
-  <data name="ReportInactiveConfirmText" xml:space="preserve">
-    <value>Confirm that a person is inactive. This means that the person will no longer receive an automatic match. If the person wants to become active again, they can reactivate it themselves.</value>
-    <comment>Confirmation Text to report someone as inactive</comment>
-  </data>
-  <data name="ResumePairingsButtonText" xml:space="preserve">
-    <value>Resume matches</value>
-    <comment>Button text to resume pairings</comment>
-  </data>
-  <data name="SalutationTitleText" xml:space="preserve">
-    <value>Hi there!</value>
-    <comment>This is the text for the salutation in the adaptive cards when the bot is installed to a team and also when new users are added to the team</comment>
-  </data>
-  <data name="TakeATourButtonText" xml:space="preserve">
-    <value>Take a tour</value>
-    <comment>The text for the button which launches a tour when clicked</comment>
-  </data>
-  <data name="TourContentPageTitleText" xml:space="preserve">
-    <value>Tour</value>
-    <comment>This is the tour content page title text</comment>
-  </data>
-  <data name="TourMatchesBodyText" xml:space="preserve">
-    <value>Pause matches whenever you need. Too busy that week? Out of the office? No problem. Just click the button at anytime.</value>
-    <comment>This is the tour match task module body text</comment>
-  </data>
-  <data name="TourMatchesHeaderText" xml:space="preserve">
-    <value>Easily pause matches as needed</value>
-    <comment>This is the tour match task module header text</comment>
-  </data>
-  <data name="TourWelcomeBodyText" xml:space="preserve">
-    <value>Every week, I'll pair you with someone new. If you have the inclination that week, you can meet up--grab a lunch, or a call if you're in different locations. Look out for another message in which I'll pair you with your first match.</value>
-    <comment>This is the tour welcome body text</comment>
-  </data>
-  <data name="TourWelcomeHeaderText" xml:space="preserve">
-    <value>Make new friends and build community with them</value>
-    <comment>This is the tour welcome header text</comment>
-  </data>
-  <data name="TourWelcomeImageAltText" xml:space="preserve">
-    <value>Welcome image</value>
-    <comment>This is the tour welcome image alt text</comment>
-  </data>
-  <data name="UnrecognizedInput" xml:space="preserve">
-    <value>I'm sorry, but I can't process the incoming message. You can take a tour, though, to learn more about my functionality.</value>
-    <comment>The text for the unrecognized input scenario</comment>
-  </data>
-  <data name="WelcomeTourTitle" xml:space="preserve">
-    <value>Tour</value>
-    <comment>This is the title of the tour for the Icebreaker Bot</comment>
-  </data>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="BackButtonText" xml:space="preserve">
+        <value>Back</value>
+        <comment>This is the back button text</comment>
+    </data>
+    <data name="ChatWithMatchButtonText" xml:space="preserve">
+        <value>Chat with {0}</value>
+        <comment>Button text to initiate a chat with the person the user has been matched up with</comment>
+    </data>
+    <data name="ChatWithMessageGreeting" xml:space="preserve">
+        <value>Hi there, {0}</value>
+        <comment>This is the greeting of the chat with matched member message, {0} is a random selected question</comment>
+    </data>
+    <data name="DefaultQuestion" xml:space="preserve">
+        <value>How are you?</value>
+        <comment>This is the default question, used if none other is available.</comment>
+    </data>
+    <data name="DoneButtonText" xml:space="preserve">
+        <value>Done</value>
+        <comment>This is the done button text</comment>
+    </data>
+    <data name="ErrorOccured" xml:space="preserve">
+        <value>There was an error while processing request. Retry?</value>
+        <comment>A generic message that is sent when there is an error occurring</comment>
+    </data>
+    <data name="Failure" xml:space="preserve">
+        <value>Sorry! An error has occurred. Please try again, and if the problem persists, contact your admin.</value>
+        <comment>Generic ErrorMessage to send to User in case of an error.</comment>
+    </data>
+    <data name="InstallMessageKnownInstallerPart1" xml:space="preserve">
+        <value>If you're reading this, it's most likely because {0} added me to the **{1} Team.**</value>
+        <comment>Install message and also the welcome message when the app installer is known - {0} is the placeholder for the name of the user that has installed the app to the team, and {1} is the placeholder for the name of the team that the app has been installed to</comment>
+    </data>
+    <data name="InstallMessageKnownInstallerPart2" xml:space="preserve">
+        <value>I get to help you meet more people around your organization by randomly pairing you with someone new every week. You get to make more friends and learn about the people you work with. It's a win-win-*win* situation.</value>
+        <comment>Part 2 of the install message when the name of the installer is known</comment>
+    </data>
+    <data name="InstallMessageKnownInstallerPart3" xml:space="preserve">
+        <value>**To meet new people, just hang tight. I'll send you an invite soon.**</value>
+        <comment>Part 3 of the install message with the name of the installer known</comment>
+    </data>
+    <data name="InstallMessageUnknownInstallerPart1" xml:space="preserve">
+        <value>If you're reading this, it's because I was installed to **{0} Team.** </value>
+        <comment>Install message and also the welcome message when the app installer is not known - {0} is the placeholder for the name of the team that the app has been installed to</comment>
+    </data>
+    <data name="InstallMessageUnknownInstallerPart2" xml:space="preserve">
+        <value>I get to help you meet more people around your organization by randomly pairing you with someone new every week. You get to make more friends and learn about the people you work with. It's a win-win-*win* situation.</value>
+        <comment>Part 2 of the install message when the name of the installer is not known</comment>
+    </data>
+    <data name="InstallMessageUnknownInstallerPart3" xml:space="preserve">
+        <value>**To meet new people, just hang tight. I'll send you an invite soon.**</value>
+        <comment>Part 3 of the install message when the name of the installer is not known</comment>
+    </data>
+    <data name="MatchUpCardContentPart1" xml:space="preserve">
+        <value>Hi there again, I'm {0} in {1}. A bot that pairs you with a new coworker to meet each week. This week your match is {2}.</value>
+        <comment>First part of the match up card main content</comment>
+    </data>
+    <data name="MatchUpCardContentPart2" xml:space="preserve">
+        <value>If you've got the inclination, set something up. See, meeting people *is* easy!</value>
+        <comment>Second part of the match up card main content</comment>
+    </data>
+    <data name="MatchUpCardMatchedText" xml:space="preserve">
+        <value>You've been matched with {0}.</value>
+        <comment>The text saying who the user has been matched up with</comment>
+    </data>
+    <data name="MatchUpCardQuestion" xml:space="preserve">
+        <value>Need an Icebreaker? How about asking *{0}*</value>
+        <comment>The text for a icebreaker. {0} is a randomly selectected question.</comment>
+    </data>
+    <data name="MatchUpCardTitleContent" xml:space="preserve">
+        <value>It's time for a match!</value>
+        <comment>The title text for the pairup notification adaptive card</comment>
+    </data>
+    <data name="MeetupContent" xml:space="preserve">
+        <value>Hey there, looks like we've been matched by {0} this week. It'd be great to meet up for a coffee or a lunch or a call if you've got time.</value>
+        <comment>Content of the Meetup for the propose meeting</comment>
+    </data>
+    <data name="MeetupTitle" xml:space="preserve">
+        <value>{0} / {1} Meet up</value>
+        <comment>The title for the Meetup - {0} is the name of the first person that user has been matched with and {1} is the name of the user</comment>
+    </data>
+    <data name="NextButtonText" xml:space="preserve">
+        <value>Next</value>
+        <comment>This is the next button text</comment>
+    </data>
+    <data name="OptInConfirmation" xml:space="preserve">
+        <value>Welcome back! You've been missed. I've restarted your matches. Have fun!</value>
+        <comment>The confirmation reply that is sent when the user resumes the matches</comment>
+    </data>
+    <data name="OptOutConfirmation" xml:space="preserve">
+        <value>All set. I've paused your matches. You can turn them back on whenever you like.</value>
+        <comment>The confirmation reply that is sent when the user pauses all matches</comment>
+    </data>
+    <data name="OptOutForcedConfirmation" xml:space="preserve">
+        <value>You have been flagged as incative and thus won't receive any new matches. You can turn them back on whenever you like.</value>
+        <comment>Text to inform the user that they got flagged as inactive match</comment>
+    </data>
+    <data name="PausePairingsButtonText" xml:space="preserve">
+        <value>Pause all matches</value>
+        <comment>Button text to pause pairings</comment>
+    </data>
+    <data name="ProposeMeetupButtonText" xml:space="preserve">
+        <value>Propose meetup</value>
+        <comment>Button text to propose the meetup with the match of the user</comment>
+    </data>
+    <data name="ReportInactiveButtonText" xml:space="preserve">
+        <value>Report Inactive</value>
+        <comment>Button text to report as Inactive</comment>
+    </data>
+    <data name="ReportInactiveConfirmButtonText" xml:space="preserve">
+        <value>Confirm</value>
+        <comment>Text of Button to confirm inactive report</comment>
+    </data>
+    <data name="ReportInactiveConfirmedOptOutText" xml:space="preserve">
+        <value>The person is opted out of Matches.</value>
+        <comment>Text to confirm opt out after reporting inactive</comment>
+    </data>
+    <data name="ReportInactiveConfirmText" xml:space="preserve">
+        <value>Confirm that a person is inactive. This means that the person will no longer receive an automatic match. If the person wants to become active again, they can reactivate it themselves.</value>
+        <comment>Confirmation Text to report someone as inactive</comment>
+    </data>
+    <data name="ResumePairingsButtonText" xml:space="preserve">
+        <value>Resume matches</value>
+        <comment>Button text to resume pairings</comment>
+    </data>
+    <data name="SalutationTitleText" xml:space="preserve">
+        <value>Hi there!</value>
+        <comment>This is the text for the salutation in the adaptive cards when the bot is installed to a team and also when new users are added to the team</comment>
+    </data>
+    <data name="TakeATourButtonText" xml:space="preserve">
+        <value>Take a tour</value>
+        <comment>The text for the button which launches a tour when clicked</comment>
+    </data>
+    <data name="TourContentPageTitleText" xml:space="preserve">
+        <value>Tour</value>
+        <comment>This is the tour content page title text</comment>
+    </data>
+    <data name="TourMatchesBodyText" xml:space="preserve">
+        <value>Pause matches whenever you need. Too busy that week? Out of the office? No problem. Just click the button at anytime.</value>
+        <comment>This is the tour match task module body text</comment>
+    </data>
+    <data name="TourMatchesHeaderText" xml:space="preserve">
+        <value>Easily pause matches as needed</value>
+        <comment>This is the tour match task module header text</comment>
+    </data>
+    <data name="TourWelcomeBodyText" xml:space="preserve">
+        <value>Every week, I'll pair you with someone new. If you have the inclination that week, you can meet up--grab a lunch, or a call if you're in different locations. Look out for another message in which I'll pair you with your first match.</value>
+        <comment>This is the tour welcome body text</comment>
+    </data>
+    <data name="TourWelcomeHeaderText" xml:space="preserve">
+        <value>Make new friends and build community with them</value>
+        <comment>This is the tour welcome header text</comment>
+    </data>
+    <data name="TourWelcomeImageAltText" xml:space="preserve">
+        <value>Welcome image</value>
+        <comment>This is the tour welcome image alt text</comment>
+    </data>
+    <data name="UnrecognizedInput" xml:space="preserve">
+        <value>I'm sorry, but I can't process the incoming message. You can take a tour, though, to learn more about my functionality.</value>
+        <comment>The text for the unrecognized input scenario</comment>
+    </data>
+    <data name="WelcomeTourTitle" xml:space="preserve">
+        <value>Tour</value>
+        <comment>This is the title of the tour for the Icebreaker Bot</comment>
+    </data>
+    <data name="OptInButtonText" xml:space="preserve">
+        <value>Accept</value>
+        <comment>This is the title od OptIn</comment>
+    </data>
+    <data name="OptInText" xml:space="preserve">
+        <value>Yo must acceptate the datp protection law</value>
+        <comment>This is the Text for OptIn</comment>
+    </data>
 </root>

@@ -1,6 +1,6 @@
 resource "local_file" "logo" {
   for_each       = toset(["color.png", "outline.png"])
-  content_base64 = filebase64("../../Manifest/${each.key}")
+  content_base64 = filebase64("./Manifest/${each.key}")
   filename       = "${path.module}/tmp/${each.key}"
 }
 

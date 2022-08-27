@@ -10,7 +10,10 @@ namespace Icebreaker.Tests.BotTests
     using Icebreaker.Helpers;
     using Microsoft.ApplicationInsights;
     using Microsoft.Bot.Builder;
+    using Microsoft.Bot.Builder.Adapters;
+    using Microsoft.Bot.Connector;
     using Microsoft.Bot.Connector.Authentication;
+    using Microsoft.Bot.Schema;
     using Microsoft.Bot.Schema.Teams;
 
     /// <summary>
@@ -18,8 +21,20 @@ namespace Icebreaker.Tests.BotTests
     /// </summary>
     public class ConversationHelperMock : ConversationHelper
     {
+
+        private readonly TestAdapter botAdapter;
+
         public ConversationHelperMock()
-            : base(MicrosoftAppCredentials.Empty, new TelemetryClient())
+            : base(MicrosoftAppCredentials.Empty, new TelemetryClient(), new TestAdapter(Channels.Msteams)
+            {
+                Conversation =
+                {
+                Conversation = new ConversationAccount
+                {
+                    ConversationType = "channel",
+                },
+                },
+            })
         {
         }
 
