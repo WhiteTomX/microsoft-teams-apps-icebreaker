@@ -18,5 +18,5 @@ runs:
       shell: cmd
     - name: Build
       working-directory: ${{ inputs.source_path }}
-      run: msbuild Icebreaker.sln /p:Platform="Any CPU" /p:Configuration=Release /p:OutDir="${{ env.GITHUB_WORKSPACE }}/out"
+      run: msbuild Icebreaker.sln /p:Platform="Any CPU" /p:Configuration=Release /p:OutDir="${{ github.workspace }}/out"
       shell: cmd
