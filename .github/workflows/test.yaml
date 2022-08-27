@@ -16,6 +16,6 @@ jobs:
     - name: Run Tests
       uses: microsoft/vstest-action@v1.0.0
       with:
-        testAssembly: Icebreaker.Tests*.dll
+        testAssembly: Icebreaker.Tests.dll
         searchFolder: "${{ github.workspace }}/out"
         runInParallel: true
