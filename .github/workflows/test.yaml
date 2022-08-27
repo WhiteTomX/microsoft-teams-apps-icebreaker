@@ -17,5 +17,5 @@ jobs:
       uses: microsoft/vstest-action@v1.0.0
       with:
         testAssembly: Icebreaker.Tests*.dll
-        searchFolder: "${{ env.GITHUB_WORKSPACE }}/out"
+        searchFolder: "$env:GITHUB_WORKSPACE/out"
         runInParallel: true
