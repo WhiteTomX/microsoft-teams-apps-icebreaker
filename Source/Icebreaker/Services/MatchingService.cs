@@ -167,19 +167,11 @@ namespace Icebreaker.Services
         /// <returns>Opted in users' channels</returns>
         private async Task<List<ChannelAccount>> GetOptedInUsersAsync(Dictionary<string, bool> dbMembersLookup, TeamInstallInfo teamInfo)
         {
-            // Pull the roster of specified team and then remove everyone who has opted out explicitly
-            var members = await this.conversationHelper.GetTeamMembers(teamInfo.ServiceUrl, teamInfo.TeamId);
+            ChannelAccount[] optInMembers = await Task.WhenAll(dbMembersLookup.Where(u => u.Value).Select(u => this.conversationHelper.GetTeamMemberAsync(u.Key, teamInfo.TeamId, teamInfo.ServiceUrl)));
 
-            this.telemetryClient.TrackTrace($"Found {members.Count} in team {teamInfo.TeamId}");
+            this.telemetryClient.TrackTrace($"Found {optInMembers.Length} of the opted in users in team {teamInfo.TeamId}");
 
-            return members
-                .Where(member => member != null)
-                .Where(member =>
-                {
-                    var memberObjectId = this.GetChannelUserObjectId(member);
-                    return dbMembersLookup.ContainsKey(memberObjectId) && dbMembersLookup[memberObjectId];
-                })
-                .ToList();
+            return optInMembers.ToList();
         }
 
         /// <summary>

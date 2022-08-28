@@ -168,7 +168,7 @@ namespace Icebreaker.Bot
                         await this.SaveAddedToTeam(message.ServiceUrl, teamId, teamsChannelData.Tenant.Id, personThatAddedBot);
                         await this.WelcomeTeam(turnContext, personThatAddedBot, cancellationToken);
 
-                        // this.botAdapter, teamInfo
+                        // This is the only time we process all members, regardless if they opted in
                         var teamMembers = await this.conversationHelper.GetTeamMembers(message.ServiceUrl, teamId);
 
                         foreach (var teamMember in teamMembers) // evtl. 158 if ? meber id = bot id ausschließen

@@ -138,6 +138,24 @@ namespace Icebreaker.Helpers
         }
 
         /// <summary>
+        /// Gets the account of a single conversation member.
+        /// This works in one-on-one, group, and teams scoped conversations.
+        /// </summary>
+        /// <param name="userId"> ID of the user in question. </param>
+        /// <param name="teamId">ID of the team to get the user as member from</param>
+        /// <param name="serviceUrl">Team serviceUrl</param>
+        /// <returns>Team Details.</returns>
+        public virtual async Task<TeamsChannelAccount> GetTeamMemberAsync(string userId, string teamId, string serviceUrl)
+        {
+            TeamsChannelAccount member = null;
+            await this.ExecuteInNewTurnContext(this.botAdapter, serviceUrl, teamId, async (turnContext, tempCancellationToken) =>
+            {
+                member = await TeamsInfo.GetTeamMemberAsync(turnContext, userId, teamId, tempCancellationToken);
+            });
+            return member;
+        }
+
+        /// <summary>
         /// Gets the details for the given team id. This only works in teams scoped conversations.
         /// </summary>
         /// <param name="turnContext"> Turn context. </param>
