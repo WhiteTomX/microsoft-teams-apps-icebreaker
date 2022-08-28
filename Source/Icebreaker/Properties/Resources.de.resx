@@ -155,8 +155,8 @@
         <comment>Part 2 of the install message when the name of the installer is known</comment>
     </data>
     <data name="InstallMessageKnownInstallerPart3" xml:space="preserve">
-    <value>**Um neue Leute kennenzulernen, bleib einfach dran. Ich werde dir bald eine Einladung senden.[Datenschutzhinweise](https://www.qbeyond.de/)**</value>
-    <comment>Part 3 of the install message with the name of the installer known</comment>
+        <value>**Um neue Leute kennenzulernen, bleib einfach dran. Ich werde dir bald eine Einladung senden.**</value>
+        <comment>Part 3 of the install message with the name of the installer known</comment>
     </data>
     <data name="InstallMessageUnknownInstallerPart1" xml:space="preserve">
         <value>Wenn du dies liest, ist es, weil ich für das **{0}-Team** installiert wurde. </value>
@@ -166,9 +166,9 @@
         <value>Ich kann dir helfen, mehr Zeichensetzende des Vereins kennenzulernen, indem ich dich jede Woche zufällig mit jemandem zusammenbringe. Du lernst neue Menschen kennen und erfährst mehr über andere Zeichensetzende. Das ist eine Win-Win-*Win*-Situation.</value>
         <comment>Part 2 of the install message when the name of the installer is not known</comment>
     </data>
-     <data name="InstallMessageUnknownInstallerPart3" xml:space="preserve">
-    <value>**Um neue Leute kennenzulernen, bleib einfach dran. Ich werde Ihnen bald eine Einladung senden.**</value>
-    <comment>Part 3 of the install message when the name of the installer is not known</comment>
+    <data name="InstallMessageUnknownInstallerPart3" xml:space="preserve">
+        <value>**Um neue Leute kennenzulernen, bleib einfach dran. Ich werde Ihnen bald eine Einladung senden.**</value>
+        <comment>Part 3 of the install message when the name of the installer is not known</comment>
     </data>
     <data name="MatchUpCardContentPart1" xml:space="preserve">
         <value>Hallo nochmal, ich bin {0} in {1}. Ein Bot, der dich jede Woche mit jemandem zusammenbringt. Diese Woche ist {2} dein Match.</value>
@@ -287,7 +287,7 @@
         <comment>This is the title of OptIn</comment>
     </data>
     <data name="OptInText" xml:space="preserve">
-        <value>**Um teilzunehmen, musst du die [Datenschutzhinweise](https://www.qbeyond.de/) akzeptieren.**</value>
+        <value>**Um teilzunehmen, musst du die [Datenschutzhinweise](https://www.example.org/) akzeptieren.**</value>
         <comment>This is the Text fpr OptIn</comment>
     </data>
 </root>

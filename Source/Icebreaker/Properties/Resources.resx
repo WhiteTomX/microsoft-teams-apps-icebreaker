@@ -286,7 +286,7 @@
         <comment>This is the title od OptIn</comment>
     </data>
     <data name="OptInText" xml:space="preserve">
-        <value>Yo must acceptate the datp protection law</value>
+        <value>**You must acknowledge the [privacy notice](https://www.example.org/).**</value>
         <comment>This is the Text for OptIn</comment>
     </data>
 </root>
