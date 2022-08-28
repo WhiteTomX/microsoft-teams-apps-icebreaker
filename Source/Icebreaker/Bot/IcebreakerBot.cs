@@ -148,7 +148,8 @@ namespace Icebreaker.Bot
                 foreach (var member in membersAdded)
                 {
 
-                    if (member.Id == myBotId) // bot wurde team hinzugefügt               
+                    if (member.Id == myBotId)
+                    // Bot added to Team
                     {
 
                         this.telemetryClient.TrackTrace($"Bot installed to team {teamId}");
@@ -170,8 +171,10 @@ namespace Icebreaker.Bot
 
                         // This is the only time we process all members, regardless if they opted in
                         var teamMembers = await this.conversationHelper.GetTeamMembers(message.ServiceUrl, teamId);
+                        var knownUsers = await this.dataProvider.GetAllUsersOptInStatusAsync();
 
-                        foreach (var teamMember in teamMembers) // evtl. 158 if ? meber id = bot id ausschließen
+                        // send message only to unknown users
+                        foreach (var teamMember in teamMembers.Where(m => !knownUsers.ContainsKey(m.Id)))
                         {
                             await this.WelcomeUser(turnContext, teamMember.Id, teamsChannelData.Tenant.Id, teamsChannelData.Team.Id, cancellationToken);
                         }
