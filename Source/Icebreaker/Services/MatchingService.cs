@@ -197,7 +197,7 @@ namespace Icebreaker.Services
             }
             else
             {
-                this.telemetryClient.TrackTrace($"Pairs could not be made because there is only 1 user in the team");
+                this.telemetryClient.TrackTrace($"Pairs could not be made because there is only ${users.Count} user in the team");
             }
 
             this.Randomize(users);
