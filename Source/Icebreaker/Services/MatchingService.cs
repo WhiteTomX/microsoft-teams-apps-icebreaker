@@ -102,14 +102,14 @@ namespace Icebreaker.Services
                     }
                     catch (Exception ex)
                     {
-                        this.telemetryClient.TrackTrace($"Error pairing up team members: {ex.Message}", SeverityLevel.Warning);
+                        this.telemetryClient.TrackTrace($"Error pairing up team members: {ex.Message}", SeverityLevel.Error);
                         this.telemetryClient.TrackException(ex);
                     }
                 }
             }
             catch (Exception ex)
             {
-                this.telemetryClient.TrackTrace($"Error making pairups: {ex.Message}", SeverityLevel.Warning);
+                this.telemetryClient.TrackTrace($"Error making pairups: {ex.Message}", SeverityLevel.Error);
                 this.telemetryClient.TrackException(ex);
             }
 
@@ -168,6 +168,7 @@ namespace Icebreaker.Services
         private async Task<List<ChannelAccount>> GetOptedInUsersAsync(Dictionary<string, bool> dbMembersLookup, TeamInstallInfo teamInfo)
         {
             ChannelAccount[] optInMembers = await Task.WhenAll(dbMembersLookup.Where(u => u.Value).Select(u => this.conversationHelper.GetTeamMemberAsync(u.Key, teamInfo.TeamId, teamInfo.ServiceUrl)));
+            optInMembers = optInMembers.Where(i => i != null).ToArray();
 
             this.telemetryClient.TrackTrace($"Found {optInMembers.Length} of the opted in users in team {teamInfo.TeamId}");
 

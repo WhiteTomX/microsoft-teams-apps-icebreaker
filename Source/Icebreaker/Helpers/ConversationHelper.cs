@@ -7,6 +7,7 @@ namespace Icebreaker.Helpers
 {
     using System;
     using System.Collections.Generic;
+    using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.ApplicationInsights;
@@ -150,7 +151,23 @@ namespace Icebreaker.Helpers
             TeamsChannelAccount member = null;
             await this.ExecuteInNewTurnContext(this.botAdapter, serviceUrl, teamId, async (turnContext, tempCancellationToken) =>
             {
-                member = await TeamsInfo.GetTeamMemberAsync(turnContext, userId, teamId, tempCancellationToken);
+                try
+                {
+                    member = await TeamsInfo.GetTeamMemberAsync(turnContext, userId, teamId, tempCancellationToken);
+                }
+                catch (ErrorResponseException ex)
+                {
+                    if (ex.Response.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        // is not member of Team
+                        member = null;
+                    }
+                    else
+                    {
+                        throw ex;
+                    }
+                }
+                
             });
             return member;
         }
