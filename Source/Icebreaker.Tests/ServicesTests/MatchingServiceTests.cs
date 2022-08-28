@@ -8,11 +8,14 @@ namespace Icebreaker.Tests.ServicesTests
     using System;
     using System.Collections.Generic;
     using System.Configuration;
+    using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
     using Icebreaker.Helpers;
     using Icebreaker.Interfaces;
     using Icebreaker.Services;
     using Microsoft.ApplicationInsights;
+    using Microsoft.Bot.Builder;
     using Microsoft.Bot.Builder.Adapters;
     using Microsoft.Bot.Connector;
     using Microsoft.Bot.Connector.Authentication;
@@ -52,6 +55,8 @@ namespace Icebreaker.Tests.ServicesTests
             this.conversationHelper = new Mock<ConversationHelper>(MockBehavior.Loose, new MicrosoftAppCredentials(string.Empty, string.Empty), telemetryClient, this.botAdapter);
             this.conversationHelper.Setup(x => x.GetTeamNameByIdAsync(this.botAdapter, It.IsAny<TeamInstallInfo>()))
                 .Returns(() => Task.FromResult("IceBreakerTeam"));
+            // make sure that Teammembers are NEVER retrieved
+            this.conversationHelper.Setup(x => x.GetTeamMembers(It.IsAny<string>(), It.IsAny<string>())).Throws(new NotSupportedException("We should not retrieves all members of a team as they may not opted in."));
 
             this.dataProvider = new Mock<IBotDataProvider>();
             this.dataProvider.Setup(x => x.GetInstalledTeamAsync(It.IsAny<string>()))
@@ -94,7 +99,7 @@ namespace Icebreaker.Tests.ServicesTests
         }
 
         [Fact]
-        public async Task MatchPairs_OneMemberOnlyExist_NoPairsGenerated()
+        public async Task MatchPairs_NoOptedIn_NoPairsGenerated()
         {
             // Arrange
             this.dataProvider.Setup(x => x.GetInstalledTeamsAsync())
@@ -108,13 +113,6 @@ namespace Icebreaker.Tests.ServicesTests
             this.dataProvider.Setup(x => x.GetAllUsersOptInStatusAsync())
                 .Returns(() => Task.FromResult(new Dictionary<string, bool>()));
 
-            // 1 member exist in team
-            this.conversationHelper.Setup(x => x.GetTeamMembers(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(() => Task.FromResult((IList<ChannelAccount>)new List<ChannelAccount>
-                {
-                    new ChannelAccount(Guid.NewGuid().ToString()),
-                }));
-
             // Act
             // Send the message activity to the bot.
             var pairsNotifiedCount = await this.sut.MakePairsAndNotifyAsync();
@@ -128,47 +126,34 @@ namespace Icebreaker.Tests.ServicesTests
             // 2 calls to GetTeamNameByIdAsync since we have 2 teams
             this.conversationHelper.Verify(m => m.GetTeamNameByIdAsync(this.botAdapter, It.IsAny<TeamInstallInfo>()), Times.Exactly(2));
 
-            // 2 calls to GetTeamMembers since we have 2 teams
-            this.conversationHelper.Verify(m => m.GetTeamMembers(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
-
-            // No groups paired since only 1 member exist in a team
+            // No groups paired since no one opted in
             Assert.Equal(0, pairsNotifiedCount);
         }
 
         [Fact]
-        public async Task MatchPairs_MultipleMembersExist_NoPairsGenerated()
+        public async Task MatchPairs_OneMemberOptedIn_NoPairsGenerated()
         {
+            var teams = new List<TeamInstallInfo>
+                {
+                    new TeamInstallInfo { TeamId = Guid.NewGuid().ToString() },
+                    new TeamInstallInfo { TeamId = Guid.NewGuid().ToString() },
+                };
+
             // Arrange
             this.dataProvider.Setup(x => x.GetInstalledTeamsAsync())
-                .Returns(() => Task.FromResult<IList<TeamInstallInfo>>(new List<TeamInstallInfo>
-                {
-                    new TeamInstallInfo { TeamId = Guid.NewGuid().ToString() },
-                    new TeamInstallInfo { TeamId = Guid.NewGuid().ToString() },
-                }));
+                .Returns(() => Task.FromResult<IList<TeamInstallInfo>>(teams));
 
-            // No user opted-in
+            var users = this.GenerateUsers(2);
+
+            // Two people opted in
             this.dataProvider.Setup(x => x.GetAllUsersOptInStatusAsync())
-                .Returns(() => Task.FromResult(new Dictionary<string, bool>()));
+                .Returns(() => Task.FromResult(users.ToDictionary(u => u.Id, u => true)));
 
-            // 2 members exist in each team
-            this.conversationHelper.Setup(x => x.GetTeamMembers(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(() => Task.FromResult<IList<ChannelAccount>>(new List<ChannelAccount>
-                {
-                    new TeamsChannelAccount
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        AadObjectId = Guid.NewGuid().ToString(),
-                        UserPrincipalName = "Test@test.com",
-                        Email = string.Empty,
-                    },
-                    new TeamsChannelAccount
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        AadObjectId = Guid.NewGuid().ToString(),
-                        UserPrincipalName = "Test@test.com",
-                        Email = string.Empty,
-                    },
-                }));
+            // only one opted in member per team
+            this.conversationHelper.Setup(x => x.GetTeamMemberAsync(users[0].Id, teams[0].TeamId, It.IsAny<string>()))
+                .Returns((string userId, string teamId, string serviceUrl) => Task.FromResult(users[0]));
+            this.conversationHelper.Setup(x => x.GetTeamMemberAsync(users[1].Id, teams[1].TeamId, It.IsAny<string>()))
+                .Returns((string userId, string teamId, string serviceUrl) => Task.FromResult(users[1]));
 
             // Act
             // Send the message activity to the bot.
@@ -183,10 +168,10 @@ namespace Icebreaker.Tests.ServicesTests
             // 2 calls to GetTeamNameByIdAsync since we have 2 teams
             this.conversationHelper.Verify(m => m.GetTeamNameByIdAsync(this.botAdapter, It.IsAny<TeamInstallInfo>()), Times.Exactly(2));
 
-            // 2 calls to GetTeamMembers since we have 2 teams
-            this.conversationHelper.Verify(m => m.GetTeamMembers(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            // 4 calls to GetTeamMemberAsync since we have 2 users and two teams
+            this.conversationHelper.Verify(m => m.GetTeamMemberAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(4));
 
-            // 2 groups are paired (1 group per team)
+            // 0 groups are paired
             Assert.Equal(0, pairsNotifiedCount);
         }
 
@@ -212,25 +197,15 @@ namespace Icebreaker.Tests.ServicesTests
                     { optedInUserId, true },
                 }));
 
-            // 2 members exist in each team
-            this.conversationHelper.Setup(x => x.GetTeamMembers(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(() => Task.FromResult<IList<ChannelAccount>>(new List<ChannelAccount>
-                {
-                    new TeamsChannelAccount
+            // all users are in all teams
+            this.conversationHelper.Setup(x => x.GetTeamMemberAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns((string userId, string teamId, string serviceUrl) => Task.FromResult<TeamsChannelAccount>(new TeamsChannelAccount()
                     {
-                        Id = optedOutUserId,
-                        AadObjectId = optedOutUserId,
+                        Id = userId,
+                        AadObjectId = Guid.NewGuid().ToString(),
                         UserPrincipalName = string.Empty,
                         Email = string.Empty,
-                    },
-                    new TeamsChannelAccount
-                    {
-                        Id = optedInUserId,
-                        AadObjectId = optedInUserId,
-                        UserPrincipalName = string.Empty,
-                        Email = string.Empty,
-                    },
-                }));
+                    }));
 
             // Act
             // Send the message activity to the bot.
@@ -245,10 +220,10 @@ namespace Icebreaker.Tests.ServicesTests
             // 2 calls to GetTeamNameByIdAsync since we have 2 teams
             this.conversationHelper.Verify(m => m.GetTeamNameByIdAsync(this.botAdapter, It.IsAny<TeamInstallInfo>()), Times.Exactly(2));
 
-            // 2 calls to GetTeamMembers since we have 2 teams
-            this.conversationHelper.Verify(m => m.GetTeamMembers(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            // 2 calls to GetTeamMemberAsync since we have 2 teams and one opted in user
+            this.conversationHelper.Verify(m => m.GetTeamMemberAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
 
-            // No groups paired since only 1 member opted-in
+            // No groups paired since only 1 member opted-in per team
             Assert.Equal(0, pairsNotifiedCount);
         }
 
@@ -273,24 +248,14 @@ namespace Icebreaker.Tests.ServicesTests
                     { optedInUserIds[1], true },
                 }));
 
-            // 2 members exist in each team
-            this.conversationHelper.Setup(x => x.GetTeamMembers(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(() => Task.FromResult((IList<ChannelAccount>)new List<ChannelAccount>
+            // all users are in all teams
+            this.conversationHelper.Setup(x => x.GetTeamMemberAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns((string userId, string teamId, string serviceUrl) => Task.FromResult<TeamsChannelAccount>(new TeamsChannelAccount()
                 {
-                    new TeamsChannelAccount
-                    {
-                        Id = optedInUserIds[0],
-                        AadObjectId = optedInUserIds[0],
-                        UserPrincipalName = "Test@test.com",
-                        Email = string.Empty,
-                    },
-                    new TeamsChannelAccount
-                    {
-                        Id = optedInUserIds[1],
-                        AadObjectId = optedInUserIds[1],
-                        UserPrincipalName = "Test@test.com",
-                        Email = string.Empty,
-                    },
+                    Id = userId,
+                    AadObjectId = Guid.NewGuid().ToString(),
+                    UserPrincipalName = "something@other.local",
+                    Email = string.Empty,
                 }));
 
             // Act
@@ -306,8 +271,8 @@ namespace Icebreaker.Tests.ServicesTests
             // 2 calls to GetTeamNameByIdAsync since we have 2 teams
             this.conversationHelper.Verify(m => m.GetTeamNameByIdAsync(this.botAdapter, It.IsAny<TeamInstallInfo>()), Times.Exactly(2));
 
-            // 2 calls to GetTeamMembers since we have 2 teams
-            this.conversationHelper.Verify(m => m.GetTeamMembers(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            // 4 calls to GetTeamMemberAsync since we have 2 teams
+            this.conversationHelper.Verify(m => m.GetTeamMemberAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(4));
 
             // 2 groups are paired (1 group per team)
             Assert.Equal(2, pairsNotifiedCount);
@@ -323,28 +288,20 @@ namespace Icebreaker.Tests.ServicesTests
                     new TeamInstallInfo { TeamId = Guid.NewGuid().ToString() },
                 }));
 
-            // No user opted-out
-            this.dataProvider.Setup(x => x.GetAllUsersOptInStatusAsync())
-                .Returns(() => Task.FromResult(new Dictionary<string, bool>()));
+            var users = GenerateUsers(2);
 
-            // 2 members exist in each team
-            this.conversationHelper.Setup(x => x.GetTeamMembers(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(() => Task.FromResult<IList<ChannelAccount>>(new List<ChannelAccount>
+            // All users opted in
+            this.dataProvider.Setup(x => x.GetAllUsersOptInStatusAsync())
+                .Returns(() => Task.FromResult(users.ToDictionary(u => u.Id, u => true)));
+
+            // All users member of all teams
+            this.conversationHelper.Setup(x => x.GetTeamMemberAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns((string userId, string teamId, string serviceUrl) => Task.FromResult<TeamsChannelAccount>(new TeamsChannelAccount()
                 {
-                    new TeamsChannelAccount
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        AadObjectId = Guid.NewGuid().ToString(),
-                        UserPrincipalName = string.Empty,
-                        Email = string.Empty,
-                    },
-                    new TeamsChannelAccount
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        AadObjectId = Guid.NewGuid().ToString(),
-                        UserPrincipalName = string.Empty,
-                        Email = string.Empty,
-                    },
+                    Id = userId,
+                    AadObjectId = Guid.NewGuid().ToString(),
+                    UserPrincipalName = string.Empty,
+                    Email = string.Empty,
                 }));
 
             var maxPairUpsPerTeam = ConfigurationManager.AppSettings[this.maxPairsSettingsKey];
@@ -368,11 +325,27 @@ namespace Icebreaker.Tests.ServicesTests
             // 1 calls to GetTeamNameByIdAsync since we have 1 team
             this.conversationHelper.Verify(m => m.GetTeamNameByIdAsync(this.botAdapter, It.IsAny<TeamInstallInfo>()), Times.Once);
 
-            // 1 calls to GetTeamMembers since we have 1 team
-            this.conversationHelper.Verify(m => m.GetTeamMembers(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            // 2 calls to GetTeamMemberAsync since we have 1 team
+            this.conversationHelper.Verify(m => m.GetTeamMemberAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
 
             // No pairs since max limit is reached
             Assert.Equal(0, pairsNotifiedCount);
+        }
+
+        private List<TeamsChannelAccount> GenerateUsers(int number)
+        {
+            var users = new List<TeamsChannelAccount>();
+            for (int i = 0; i < number; i++)
+            {
+                users.Add(new TeamsChannelAccount
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    AadObjectId = Guid.NewGuid().ToString(),
+                    UserPrincipalName = string.Empty,
+                    Email = string.Empty,
+                });
+            }
+            return users;
         }
     }
 }

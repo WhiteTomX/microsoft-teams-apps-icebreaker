@@ -7,6 +7,7 @@ namespace Icebreaker.Helpers
 {
     using System;
     using System.Collections.Generic;
+    using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.ApplicationInsights;
@@ -135,6 +136,40 @@ namespace Icebreaker.Helpers
         public virtual async Task<TeamsChannelAccount> GetMemberAsync(ITurnContext turnContext, string memberId, CancellationToken cancellationToken)
         {
             return await TeamsInfo.GetMemberAsync(turnContext, memberId, cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets the account of a single conversation member.
+        /// This works in one-on-one, group, and teams scoped conversations.
+        /// </summary>
+        /// <param name="userId"> ID of the user in question. </param>
+        /// <param name="teamId">ID of the team to get the user as member from</param>
+        /// <param name="serviceUrl">Team serviceUrl</param>
+        /// <returns>Team Details.</returns>
+        public virtual async Task<TeamsChannelAccount> GetTeamMemberAsync(string userId, string teamId, string serviceUrl)
+        {
+            TeamsChannelAccount member = null;
+            await this.ExecuteInNewTurnContext(this.botAdapter, serviceUrl, teamId, async (turnContext, tempCancellationToken) =>
+            {
+                try
+                {
+                    member = await TeamsInfo.GetTeamMemberAsync(turnContext, userId, teamId, tempCancellationToken);
+                }
+                catch (ErrorResponseException ex)
+                {
+                    if (ex.Response.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        // is not member of Team
+                        member = null;
+                    }
+                    else
+                    {
+                        throw ex;
+                    }
+                }
+                
+            });
+            return member;
         }
 
         /// <summary>
