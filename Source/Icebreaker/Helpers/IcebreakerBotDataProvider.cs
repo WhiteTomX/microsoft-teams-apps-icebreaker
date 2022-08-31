@@ -33,6 +33,7 @@ namespace Icebreaker.Helpers
         private DocumentCollection teamsCollection;
         private DocumentCollection usersCollection;
         private DocumentCollection questionsCollection;
+        private DocumentCollection resourceStringsCollection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IcebreakerBotDataProvider"/> class.
@@ -256,6 +257,7 @@ namespace Icebreaker.Helpers
             var teamsCollectionName = CloudConfigurationManager.GetSetting("CosmosCollectionTeams");
             var usersCollectionName = CloudConfigurationManager.GetSetting("CosmosCollectionUsers");
             var questionsCollectionName = CloudConfigurationManager.GetSetting("CosmosCollectionQuestions");
+            var resourceStringsCollectionName = CloudConfigurationManager.GetSetting("CosmosCollectionResourceStrings");
 
             this.documentClient = new DocumentClient(new Uri(endpointUrl), this.secretsHelper.CosmosDBKey);
 
@@ -299,6 +301,7 @@ namespace Icebreaker.Helpers
             this.teamsCollection = await this.CreateDocumentCollectionIfNotExistsAsync(teamsCollectionName, requestOptions);
             this.usersCollection = await this.CreateDocumentCollectionIfNotExistsAsync(usersCollectionName, requestOptions);
             this.questionsCollection = await this.CreateDocumentCollectionIfNotExistsAsync(questionsCollectionName, requestOptions);
+            this.resourceStringsCollection = await this.CreateDocumentCollectionIfNotExistsAsync(resourceStringsCollectionName, requestOptions);
 
             this.telemetryClient.TrackTrace("Data store initialized");
         }
@@ -316,6 +319,22 @@ namespace Icebreaker.Helpers
         private async Task EnsureInitializedAsync()
         {
             await this.initializeTask.Value;
+        }
+
+        public async Task<string> GetResourceStringAsync(string language, string name)
+        {
+            await this.EnsureInitializedAsync();
+
+            try
+            {
+                var documentUri = UriFactory.CreateDocumentUri(this.database.Id, this.resourceStringsCollection.Id, name);
+                return await this.documentClient.ReadDocumentAsync<string>(documentUri, new RequestOptions { PartitionKey = new PartitionKey(language) });
+            }
+            catch (Exception ex)
+            {
+                this.telemetryClient.TrackException(ex.InnerException);
+                return null;
+            }
         }
     }
 }
