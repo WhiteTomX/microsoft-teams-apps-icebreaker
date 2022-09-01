@@ -136,8 +136,6 @@ namespace Icebreaker.Bot
         /// </remarks>
         protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
         {
-
-
             if (membersAdded?.Count() > 0)
             {
                 var message = turnContext.Activity;
@@ -147,11 +145,9 @@ namespace Icebreaker.Bot
 
                 foreach (var member in membersAdded)
                 {
-
                     if (member.Id == myBotId)
-                    // Bot added to Team
                     {
-
+                        // Bot added to Team
                         this.telemetryClient.TrackTrace($"Bot installed to team {teamId}");
 
                         var properties = new Dictionary<string, string>
