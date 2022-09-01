@@ -1,17 +1,16 @@
-﻿using Icebreaker.Interfaces;
-using Icebreaker.Properties;
-using Microsoft.ApplicationInsights;
-using Microsoft.Azure.Cosmos;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Resources;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="ResourcesService.cs" company="WhiteTom">
+// Copyright (c) WhiteTom.
+// Licensed under the MIT License.
+// </copyright>
 
 namespace Icebreaker.Services
 {
+    using System.Globalization;
+    using System.Resources;
+    using System.Threading.Tasks;
+    using Icebreaker.Interfaces;
+    using Microsoft.ApplicationInsights;
+
     /// <summary>
     /// Service to get ResourceStrings
     /// </summary>
@@ -25,6 +24,7 @@ namespace Icebreaker.Services
         /// Initializes a new instance of the <see cref="ResourcesService"/> class.
         /// </summary>
         /// <param name="dataProvider">Client to use to access Database</param>
+        /// <param name="telemetryClient">Client to send telemetry</param>
         public ResourcesService(IBotDataProvider dataProvider, TelemetryClient telemetryClient)
         {
             this.dataProvider = dataProvider;
@@ -32,7 +32,12 @@ namespace Icebreaker.Services
             this.resourceManager = new ResourceManager("Resources", typeof(Icebreaker.Properties.Resources).Assembly);
         }
 
-
+        /// <summary>
+        /// Get ResourceString from database, fallback to Resources
+        /// </summary>
+        /// <param name="language">Language to get the Resource String in</param>
+        /// <param name="name">Name of the ResourceString to get</param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public async Task<string> GetResourceString(string language, string name)
         {
             string resource = null;
