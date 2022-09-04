@@ -28,7 +28,7 @@ This bot has been created using [Bot Framework](https://dev.botframework.com).
 1) Clone the repository
 
     ```bash
-    git clone https://github.com/OfficeDev/microsoft-teams-icebreaker-app.git
+    git clone https://github.com/WhiteTomX/microsoft-teams-icebreaker-app.git
     ```
 
 1) If you are using Visual Studio

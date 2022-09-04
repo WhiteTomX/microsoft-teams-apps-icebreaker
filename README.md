@@ -1,35 +1,23 @@
 # Icebreaker App
-## CI/CD
-This Project uses CI/CD to deploy changes automatically. 
-# Icebreaker App Template Docs (for reference)
-
-| [Documentation](https://github.com/OfficeDev/microsoft-teams-icebreaker-app/wiki) | [Deployment guide](https://github.com/OfficeDev/microsoft-teams-icebreaker-app/wiki/Deployment-guide) | [Architecture](https://github.com/OfficeDev/microsoft-teams-icebreaker-app/wiki/Solution-overview) |
-| --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 
 Many good things in life come about through happenstance. Icebreaker enables happenstance for your team. Icebreaker is a Teams bot that helps the whole team get closer by pairing up members every week at random to meet for coffee, burgers, pizza, or a walk around the block. The bot does the heavy lifting of finding a new person to meet with each week, and aids in scheduling the meetup.
 
 Icebreaker works really well for cultivating small, interest-based communities within your organization. For example, an organization may leverage this bot for a DevOps interest group to help facilitate organic cross-pollination of ideas and best practices. Another common use case is new employees’ cohorts to help employees learn more about each other and assimilate better in the new environment.
 
-![Icebreaker in action](https://github.com/OfficeDev/microsoft-teams-icebreaker-app/wiki/images/IcebreakerScheduling.gif)
+This is a fork of the [icebreaker app from microsoft](https://github.com/OfficeDev/microsoft-teams-icebreaker-app). This version of the Icebreaker uses Opt-In instead of OptOut, offers Icebreaker-questions from database and allows to change the translation of texts dynamically from the database. On the technical side is uses terraform to deploy and allows the use of serverless and free CosmosDB.
 
-## What's new
+# Icebreaker App Template Docs (for reference)
 
-> **IMPORTANT** If you are using the initial release of Icebreaker, please upgrade to version 2. This is especially important of you are using the app in a team with more than 5,000 members. The API used to get the team roster in version 1 does not support large teams, has been deprecated, and will no longer work in the future.
+| [Documentation](https://github.com/OfficeDev/microsoft-teams-icebreaker-app/wiki) | [Deployment guide](https://github.com/OfficeDev/microsoft-teams-icebreaker-app/wiki/Deployment-guide) | [Architecture](https://github.com/OfficeDev/microsoft-teams-icebreaker-app/wiki/Solution-overview) |
+| --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 
-**IMPORTENT** If the error "libman.json : error LIB002: " is given as an error when compiling. check op libman is installed and clear the cache by command "libman clean cache cdnjs" and recompile the code. https://github.com/aspnet/LibraryManager/issues/399
-https://github.com/aspnet/LibraryManager/issues/131
-
-#### Version 2 (March 2021)
-- Update from version 3 of the Bot Framework SDK to the latest version 4
-- Fetch team roster using the paged members API, to avoid failures with large team sizes. See the deprecation notice [here](https://developer.microsoft.com/en-us/microsoft-teams/blogs/changes-coming-to-microsoft-teams-bot-apis-for-fetching-team-chat-members/).
-    - If you are using Icebreaker in a large team, remember to review the `MaxPairUpsPerTeam` app service setting.
-- Store secrets and connection strings in Azure Key Vault
+![Icebreaker in action](wiki/images/IcebreakerScheduling.gif)
 
 ## Legal notice
 
-This app template is provided under the [MIT License](https://github.com/OfficeDev/microsoft-teams-icebreaker-app/blob/master/LICENSE) terms.  In addition to these terms, by using this app template you agree to the following:
+This app template is provided under the [MIT License](LICENSE) terms.  In addition to these terms, by using this app template you agree to the following:
 
-- You, not Microsoft, will license the use of your app to users or organization. 
+- You, not Microsoft, will license the use of your app to users or organization.
 
 - This app template is not intended to substitute your own regulatory due diligence or make you or your app compliant with respect to any applicable regulations, including but not limited to privacy, healthcare, employment, or financial regulations.
 
@@ -41,28 +29,30 @@ This app template is provided under the [MIT License](https://github.com/OfficeD
 
 - Use of this template does not guarantee acceptance of your app to the Teams app store. To make this app available in the Teams app store, you will have to comply with the [submission and validation process](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/appsource/publish), and all associated requirements such as including your own privacy statement and terms of use for your app.
 
-
 ## Get started
 
-Begin with the [Solution overview](https://github.com/OfficeDev/microsoft-teams-icebreaker-app/wiki/Solution-overview) to read about what the app does and how it works.
+Begin with the [Solution overview](wiki/Solution-overview) to read about what the app does and how it works.
 
-When you're ready to try out Icebreaker, or to use it in your own organization, follow the steps in the [Deployment guide](https://github.com/OfficeDev/microsoft-teams-icebreaker-app/wiki/Deployment-guide).
+When you're ready to try out Icebreaker, or to use it in your own organization, follow the steps in the [Deployment guide](wiki/Deployment-guide).
 
 ## Feedback
 
-Thoughts? Questions? Ideas? Share them with us on [Teams UserVoice](https://microsoftteams.uservoice.com/forums/555103-public)!
-
-Please report bugs and other code issues [here](https://github.com/OfficeDev/microsoft-teams-icebreaker-app/issues/new).
+Please report bugs and other code issues [here](https://github.com/WhiteTomX/microsoft-teams-icebreaker-app/issues/new).
 
 ## Contributing
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
+This project welcomes contributions and suggestions.  
+
+<!--
+Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
 the rights to use your contribution. For details, visit https://cla.microsoft.com.
 
 When you submit a pull request, a CLA-bot will automatically determine whether you need to provide
 a CLA and decorate the PR appropriately (e.g., label, comment). Simply follow the instructions
 provided by the bot. You will only need to do this once across all repos using our CLA.
+
+!-->
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
