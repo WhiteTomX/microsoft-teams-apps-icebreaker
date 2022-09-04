@@ -3,7 +3,7 @@ resource "local_file" "icon_color" {
   filename       = "${path.module}/tmp/color.png"
 }
 
-resource "local_file" "icon_color" {
+resource "local_file" "outline" {
   content_base64 = filebase64(var.icon_outline_path)
   filename       = "${path.module}/tmp/outline.png"
 }
