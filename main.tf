@@ -29,6 +29,7 @@ locals {
     sku                    = var.sku
     cosmosDbEnableFreeTier = var.cosmosDbEnableFreeTier
     cosmosDbServerless     = var.cosmosDbServerless
+    appIconUrl = var.icon_url
   }
 }
 

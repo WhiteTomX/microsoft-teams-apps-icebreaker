@@ -111,3 +111,21 @@ variable "cosmosDbServerless" {
   default     = true
   description = "Use serverless CosmosDB. Not compatible with Free Tier."
 }
+
+variable "icon_color_path" {
+  type = string
+  default = "./Manifest/color.png"
+  description = "Path to the color png icon of the app."
+}
+
+variable "icon_outline_path" {
+  type = string
+  default = "./Manifest/outline.png"
+  description = "Path to the outline png icon of the app."
+}
+
+variable "icon_url" {
+  type = string
+  default = "https://raw.githubusercontent.com/WhiteTomX/microsoft-teams-apps-icebreaker/main/Manifest/color.png"
+  description = "The link to the icon for the bot. It must resolve to a PNG file."
+}
