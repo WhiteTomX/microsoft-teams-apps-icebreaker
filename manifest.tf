@@ -60,6 +60,6 @@ data "archive_file" "app_package" {
   output_path = "${path.module}/manifest.zip"
   source_dir  = "${path.module}/tmp"
   depends_on = [
-    local_file.icon_outline, local_file.icon_color
+    local_file.icon_outline, local_file.icon_color, local_file.manifest
   ]
 }
