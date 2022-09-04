@@ -26,7 +26,7 @@ namespace Icebreaker.Helpers.AdaptiveCards
         private readonly ResourcesService resourceService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WelcomeNewMemberAdaptiveCard"/> class.
+        /// Initializes a new instance of the <see cref="WelcomeNewMemberAdaptiveCardFactory"/> class.
         /// </summary>
         /// <param name="resourcesService">The resources Service to get the ResourceStrings.</param>
         public WelcomeNewMemberAdaptiveCardFactory(ResourcesService resourcesService)
