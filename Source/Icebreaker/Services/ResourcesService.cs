@@ -50,14 +50,19 @@ namespace Icebreaker.Services
             }
             finally
             {
-                if (string.IsNullOrEmpty(resource))
+                try
                 {
-                    resource = this.resourceManager.GetString(name: name, culture: CultureInfo.CreateSpecificCulture(language));
+                    if (string.IsNullOrEmpty(resource))
+                    {
+                        resource = this.resourceManager.GetString(name: name, culture: CultureInfo.CreateSpecificCulture(language));
+                    }
                 }
-
-                if (string.IsNullOrEmpty(resource))
+                finally
                 {
-                    resource = this.resourceManager.GetString(name);
+                    if (string.IsNullOrEmpty(resource))
+                    {
+                        resource = this.resourceManager.GetString(name);
+                    }
                 }
             }
 
