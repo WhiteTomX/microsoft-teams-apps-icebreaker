@@ -10,6 +10,7 @@ namespace Icebreaker.Services
     using System.Resources;
     using System.Threading.Tasks;
     using Icebreaker.Interfaces;
+    using Icebreaker.Properties;
     using Microsoft.ApplicationInsights;
 
     /// <summary>
@@ -30,7 +31,7 @@ namespace Icebreaker.Services
         {
             this.dataProvider = dataProvider;
             this.telemetryClient = telemetryClient;
-            this.resourceManager = new ResourceManager("Resources", typeof(Icebreaker.Properties.Resources).Assembly);
+            this.resourceManager = Resources.ResourceManager;
         }
 
         /// <summary>
