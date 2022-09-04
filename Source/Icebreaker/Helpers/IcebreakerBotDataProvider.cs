@@ -244,6 +244,24 @@ namespace Icebreaker.Helpers
             await this.documentClient.UpsertDocumentAsync(this.questionsCollection.SelfLink, question);
         }
 
+        /// <inheritdoc/>
+        public async Task<string> GetResourceStringAsync(string language, string name)
+        {
+        await this.EnsureInitializedAsync();
+
+        try
+            {
+                var documentUri = UriFactory.CreateDocumentUri(this.database.Id, this.resourceStringsCollection.Id, name);
+                var resource = await this.documentClient.ReadDocumentAsync<dynamic>(documentUri, new RequestOptions { PartitionKey = new PartitionKey(language) });
+                return resource.Document.value;
+            }
+            catch (Exception ex)
+            {
+                this.telemetryClient.TrackException(ex.InnerException);
+                return null;
+            }
+        }
+
         /// <summary>
         /// Initializes the database connection.
         /// </summary>
@@ -301,41 +319,24 @@ namespace Icebreaker.Helpers
             this.teamsCollection = await this.CreateDocumentCollectionIfNotExistsAsync(teamsCollectionName, requestOptions);
             this.usersCollection = await this.CreateDocumentCollectionIfNotExistsAsync(usersCollectionName, requestOptions);
             this.questionsCollection = await this.CreateDocumentCollectionIfNotExistsAsync(questionsCollectionName, requestOptions);
-            this.resourceStringsCollection = await this.CreateDocumentCollectionIfNotExistsAsync(resourceStringsCollectionName, requestOptions);
+            this.resourceStringsCollection = await this.CreateDocumentCollectionIfNotExistsAsync(resourceStringsCollectionName, requestOptions,"/language");
 
             this.telemetryClient.TrackTrace("Data store initialized");
         }
 
-        private async Task<ResourceResponse<DocumentCollection>> CreateDocumentCollectionIfNotExistsAsync(string collectionname, RequestOptions requestOptions)
+        private async Task<ResourceResponse<DocumentCollection>> CreateDocumentCollectionIfNotExistsAsync(string collectionname, RequestOptions requestOptions, string partitionKey = "/id")
         {
             var collectionDefinition = new DocumentCollection
             {
                 Id = collectionname,
             };
-            collectionDefinition.PartitionKey.Paths.Add("/id");
+            collectionDefinition.PartitionKey.Paths.Add(partitionKey);
             return await this.documentClient.CreateDocumentCollectionIfNotExistsAsync(this.database.SelfLink, collectionDefinition, requestOptions);
         }
 
         private async Task EnsureInitializedAsync()
         {
             await this.initializeTask.Value;
-        }
-
-        /// <inheritdoc/>
-        public async Task<string> GetResourceStringAsync(string language, string name)
-        {
-            await this.EnsureInitializedAsync();
-
-            try
-            {
-                var documentUri = UriFactory.CreateDocumentUri(this.database.Id, this.resourceStringsCollection.Id, name);
-                return await this.documentClient.ReadDocumentAsync<string>(documentUri, new RequestOptions { PartitionKey = new PartitionKey(language) });
-            }
-            catch (Exception ex)
-            {
-                this.telemetryClient.TrackException(ex.InnerException);
-                return null;
-            }
         }
     }
 }
