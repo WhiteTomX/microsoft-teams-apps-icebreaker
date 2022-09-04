@@ -321,6 +321,7 @@ namespace Icebreaker.Helpers
             await this.initializeTask.Value;
         }
 
+        /// <inheritdoc/>
         public async Task<string> GetResourceStringAsync(string language, string name)
         {
             await this.EnsureInitializedAsync();

@@ -32,6 +32,7 @@ namespace Icebreaker.Bot
     {
         private readonly IBotDataProvider dataProvider;
         private readonly ConversationHelper conversationHelper;
+        private readonly WelcomeNewMemberAdaptiveCardFactory welcomeNewMemberAdaptiveCardFactory;
         private readonly MicrosoftAppCredentials appCredentials;
         private readonly TelemetryClient telemetryClient;
         private readonly string botDisplayName;
@@ -43,12 +44,14 @@ namespace Icebreaker.Bot
         /// </summary>
         /// <param name="dataProvider">The data provider to use</param>
         /// <param name="conversationHelper">Conversation helper instance to notify team members</param>
+        /// <param name="welcomeNewMemberAdaptiveCardFactory">The Factory used to generate Welcome Cards for new Users</param>
         /// <param name="appCredentials">Microsoft app credentials to use.</param>
         /// <param name="telemetryClient">The telemetry client to use</param>
-        public IcebreakerBot(IBotDataProvider dataProvider, ConversationHelper conversationHelper, MicrosoftAppCredentials appCredentials, TelemetryClient telemetryClient)
+        public IcebreakerBot(IBotDataProvider dataProvider, ConversationHelper conversationHelper, WelcomeNewMemberAdaptiveCardFactory welcomeNewMemberAdaptiveCardFactory, MicrosoftAppCredentials appCredentials, TelemetryClient telemetryClient)
         {
             this.dataProvider = dataProvider;
             this.conversationHelper = conversationHelper;
+            this.welcomeNewMemberAdaptiveCardFactory = welcomeNewMemberAdaptiveCardFactory;
             this.appCredentials = appCredentials;
             this.telemetryClient = telemetryClient;
             this.botDisplayName = CloudConfigurationManager.GetSetting("BotDisplayName");
@@ -441,7 +444,7 @@ namespace Icebreaker.Bot
 
             if (userThatJustJoined != null)
             {
-                var welcomeMessageCard = WelcomeNewMemberAdaptiveCard.GetCard(teamName, userThatJustJoined.Name, this.botDisplayName, installedTeam.InstallerName);
+                var welcomeMessageCard = await this.welcomeNewMemberAdaptiveCardFactory.GetCard(teamName, userThatJustJoined.Name, this.botDisplayName, installedTeam.InstallerName);
                 await this.conversationHelper.NotifyUserAsync(turnContext, MessageFactory.Attachment(welcomeMessageCard), userThatJustJoined, tenantId, cancellationToken);
             }
             else
