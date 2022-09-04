@@ -49,7 +49,7 @@ namespace Icebreaker.Helpers.AdaptiveCards
 
             string introMessagePart1;
             string introMessagePart2;
-            string introMessagePart3 = await this.resourceService.GetResourceString(System.Globalization.CultureInfo.CurrentCulture.NativeName, nameof(Resources.OptInText));
+            string introMessagePart3 = await this.GetResourceString(nameof(Resources.OptInText));
 
             if (string.IsNullOrEmpty(botInstaller))
             {
@@ -88,7 +88,7 @@ namespace Icebreaker.Helpers.AdaptiveCards
 
         private async Task<string> GetResourceString(string name)
         {
-            return await this.resourceService.GetResourceString(System.Globalization.CultureInfo.CurrentCulture.NativeName, name);
+            return await this.resourceService.GetResourceString(System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName, name);
         }
     }
 }
