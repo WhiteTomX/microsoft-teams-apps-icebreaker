@@ -1,4 +1,4 @@
-﻿// <copyright file="WelcomeNewMemberAdaptiveCard.cs" company="Microsoft">
+﻿// <copyright file="WelcomeNewMemberAdaptiveCardFactory.cs" company="Microsoft">
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 // </copyright>
