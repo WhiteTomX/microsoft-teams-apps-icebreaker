@@ -40,7 +40,8 @@ namespace Icebreaker.Tests.BotTests
         private readonly TeamsChannelAccount botAccount;
         private readonly TeamsChannelData teamsChannelData;
         private readonly Mock<IBotDataProvider> dataProvider;
-        private readonly Mock<WelcomeNewMemberAdaptiveCardFactory> welcomeNewMemberAdaptiveCardFactory;
+        private readonly Mock<ResourcesService> resourcesService;
+        private readonly Mock<AdaptiveCardFactory> adaptiveCardFactory;
         private readonly TelemetryClient telemetryClient;
         private readonly ConversationHelperMock conversationHelper;
 
@@ -62,8 +63,9 @@ namespace Icebreaker.Tests.BotTests
             this.dataProvider = new Mock<IBotDataProvider>();
             this.dataProvider.Setup(x => x.GetInstalledTeamAsync(It.IsAny<string>()))
                 .Returns(() => Task.FromResult(new TeamInstallInfo()));
-            this.welcomeNewMemberAdaptiveCardFactory = new Mock<WelcomeNewMemberAdaptiveCardFactory>(new Mock<ResourcesService>(Mock.Of<IBotDataProvider>(), this.telemetryClient).Object);
-            this.sut = new IcebreakerBot(this.dataProvider.Object, this.conversationHelper,this.welcomeNewMemberAdaptiveCardFactory.Object, MicrosoftAppCredentials.Empty, this.telemetryClient);
+            this.resourcesService = new Mock<ResourcesService>(Mock.Of<IBotDataProvider>(), this.telemetryClient);
+            this.adaptiveCardFactory = new Mock<AdaptiveCardFactory>(this.resourcesService.Object);
+            this.sut = new IcebreakerBot(this.dataProvider.Object, this.conversationHelper,this.adaptiveCardFactory.Object, this.resourcesService.Object, MicrosoftAppCredentials.Empty, this.telemetryClient);
             this.userAccount = new TeamsChannelAccount { Id = Guid.NewGuid().ToString(), Properties = JObject.FromObject(new { Id = Guid.NewGuid().ToString() }) };
             this.botAccount = new TeamsChannelAccount { Id = "bot", Properties = JObject.FromObject(new { Id = "bot" }) };
             this.teamsChannelData = new TeamsChannelData
@@ -293,7 +295,7 @@ namespace Icebreaker.Tests.BotTests
 
             // Tenant filter is active
             ConfigurationManager.AppSettings[DisableTenantFilterKey] = false.ToString().ToLower();
-            var sut = new IcebreakerBot(this.dataProvider.Object, this.conversationHelper,this.welcomeNewMemberAdaptiveCardFactory.Object, MicrosoftAppCredentials.Empty, this.telemetryClient);
+            var sut = new IcebreakerBot(this.dataProvider.Object, this.conversationHelper,this.adaptiveCardFactory.Object, this.resourcesService.Object, MicrosoftAppCredentials.Empty, this.telemetryClient);
 
             // Act
             // Send the message activity to the bot.
@@ -333,7 +335,7 @@ namespace Icebreaker.Tests.BotTests
             // Only 1 tenant is allowed
             ConfigurationManager.AppSettings[AllowedTenantsKey] = Guid.Empty.ToString();
 
-            var sut = new IcebreakerBot(this.dataProvider.Object, this.conversationHelper,this.welcomeNewMemberAdaptiveCardFactory.Object, MicrosoftAppCredentials.Empty, this.telemetryClient);
+            var sut = new IcebreakerBot(this.dataProvider.Object, this.conversationHelper,this.adaptiveCardFactory.Object, this.resourcesService.Object, MicrosoftAppCredentials.Empty, this.telemetryClient);
 
             // Source tenant is different from allowed tenant
             this.botAdapter.Conversation =
@@ -378,7 +380,7 @@ namespace Icebreaker.Tests.BotTests
             // Only 1 tenant is allowed
             ConfigurationManager.AppSettings[AllowedTenantsKey] = Guid.Empty.ToString();
 
-            var sut = new IcebreakerBot(this.dataProvider.Object, this.conversationHelper, this.welcomeNewMemberAdaptiveCardFactory.Object, MicrosoftAppCredentials.Empty, this.telemetryClient);
+            var sut = new IcebreakerBot(this.dataProvider.Object, this.conversationHelper, this.adaptiveCardFactory.Object, this.resourcesService.Object, MicrosoftAppCredentials.Empty, this.telemetryClient);
 
             // Source tenant is same as allowed tenant in settings
             this.botAdapter.Conversation.Conversation = appInstalledActivity.Conversation;

@@ -77,7 +77,7 @@ namespace Icebreaker
             builder.RegisterType<IcebreakerBotDataProvider>().As<IBotDataProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<WelcomeNewMemberAdaptiveCardFactory>().SingleInstance();
+            builder.RegisterType<AdaptiveCardFactory>().SingleInstance();
         }
     }
 }

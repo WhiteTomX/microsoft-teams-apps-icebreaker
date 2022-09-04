@@ -12,6 +12,7 @@ namespace Icebreaker.Tests.ServicesTests
     using System.Threading;
     using System.Threading.Tasks;
     using Icebreaker.Helpers;
+    using Icebreaker.Helpers.AdaptiveCards;
     using Icebreaker.Interfaces;
     using Icebreaker.Services;
     using Microsoft.ApplicationInsights;
@@ -34,6 +35,8 @@ namespace Icebreaker.Tests.ServicesTests
         private readonly Mock<IBotDataProvider> dataProvider;
         private readonly Mock<QuestionService> questionService;
         private readonly Mock<ConversationHelper> conversationHelper;
+        private readonly Mock<ResourcesService> resourcesService;
+        private readonly Mock<AdaptiveCardFactory> adaptiveCardFactory; 
         private readonly string maxPairsSettingsKey = "MaxPairUpsPerTeam";
 
         /// <summary>
@@ -62,10 +65,13 @@ namespace Icebreaker.Tests.ServicesTests
             this.dataProvider.Setup(x => x.GetInstalledTeamAsync(It.IsAny<string>()))
                 .Returns(() => Task.FromResult(new TeamInstallInfo()));
 
+            this.resourcesService = new Mock<ResourcesService>(this.dataProvider.Object, new Microsoft.ApplicationInsights.TelemetryClient());
+            this.adaptiveCardFactory = new Mock<AdaptiveCardFactory>(this.resourcesService.Object);
+
             this.questionService = new Mock<QuestionService>(MockBehavior.Loose, this.dataProvider.Object, telemetryClient);
             this.questionService.Setup(x => x.GetRandomOrDefaultQuestion(It.IsAny<string>())).Returns(() => Task.FromResult("question"));
 
-            this.sut = new MatchingService(this.dataProvider.Object, this.conversationHelper.Object, this.questionService.Object, telemetryClient, this.botAdapter);
+            this.sut = new MatchingService(this.dataProvider.Object, this.conversationHelper.Object, this.questionService.Object, telemetryClient, this.botAdapter, this.adaptiveCardFactory.Object);
         }
 
         [Fact]
@@ -306,7 +312,7 @@ namespace Icebreaker.Tests.ServicesTests
 
             var maxPairUpsPerTeam = ConfigurationManager.AppSettings[this.maxPairsSettingsKey];
             ConfigurationManager.AppSettings[this.maxPairsSettingsKey] = "0";
-            var sut = new MatchingService(this.dataProvider.Object, this.conversationHelper.Object, this.questionService.Object, new TelemetryClient(), this.botAdapter);
+            var sut = new MatchingService(this.dataProvider.Object, this.conversationHelper.Object, this.questionService.Object, new TelemetryClient(), this.botAdapter, this.adaptiveCardFactory.Object);
 
             // Act
 

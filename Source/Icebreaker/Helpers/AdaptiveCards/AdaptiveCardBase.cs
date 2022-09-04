@@ -6,8 +6,10 @@
 namespace Icebreaker.Helpers.AdaptiveCards
 {
     using System;
+    using System.Threading.Tasks;
     using global::AdaptiveCards;
     using global::AdaptiveCards.Templating;
+    using Icebreaker.Services;
     using Microsoft.Bot.Schema;
 
     /// <summary>
@@ -15,6 +17,28 @@ namespace Icebreaker.Helpers.AdaptiveCards
     /// </summary>
     public class AdaptiveCardBase
     {
+
+        private readonly ResourcesService resourcesService;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AdaptiveCardBase"/> class.
+        /// </summary>
+        /// <param name="resourcesService">Service to retrieve ResourceStrings.</param>
+        protected AdaptiveCardBase(ResourcesService resourcesService)
+        {
+            this.resourcesService = resourcesService;
+        }
+
+        /// <summary>
+        /// Return the ResourceString in current language.
+        /// </summary>
+        /// <param name="name">Name of the ResourceString</param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
+        protected Task<string> GetResourceString(string name)
+        {
+            return this.resourcesService.GetResourceString(name);
+        }
+
         /// <summary>
         /// Creates the adaptive card from by processing template and related data
         /// </summary>

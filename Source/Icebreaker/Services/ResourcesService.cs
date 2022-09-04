@@ -40,6 +40,16 @@ namespace Icebreaker.Services
         /// <summary>
         /// Get ResourceString from database, fallback to Resources
         /// </summary>
+        /// <param name="name">Name of the ResourceString to get</param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
+        public async Task<string> GetResourceString(string name)
+        {
+            return await this.GetResourceString(CultureInfo.CurrentCulture.TwoLetterISOLanguageName, name);
+        }
+
+        /// <summary>
+        /// Get ResourceString from database, fallback to Resources
+        /// </summary>
         /// <param name="language">Language to get the Resource String in</param>
         /// <param name="name">Name of the ResourceString to get</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
