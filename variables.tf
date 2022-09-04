@@ -96,7 +96,7 @@ variable "termsOfUseUrl" {
 
 variable "app_version" {
   type        = string
-  default     = "1.1.0"
+  default     = "1.2.0"
   description = "The version String of the App. Used in Manifest."
 }
 
