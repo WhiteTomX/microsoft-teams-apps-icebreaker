@@ -151,7 +151,7 @@
         <comment>Install message and also the welcome message when the app installer is known - {0} is the placeholder for the name of the user that has installed the app to the team, and {1} is the placeholder for the name of the team that the app has been installed to</comment>
     </data>
     <data name="InstallMessageKnownInstallerPart2" xml:space="preserve">
-        <value>Ich kann dir helfen, Zeichensetzende in dem Verein kennenzulernen, indem ich dich jede Woche zufällig mit jemandem zusammenbringe. Du lernst neue Menschen kennen und erfährst mehr über andere Zeichensetzende. Das ist eine Win-Win-*Win*-Situation.</value>
+        <value>Ich kann dir helfen, Menschen in der Organisation kennenzulernen, indem ich dich jede Woche zufällig mit jemandem zusammenbringe. Du lernst neue Menschen kennen und erfährst mehr über andere Menschen. Das ist eine Win-Win-*Win*-Situation.</value>
         <comment>Part 2 of the install message when the name of the installer is known</comment>
     </data>
     <data name="InstallMessageKnownInstallerPart3" xml:space="preserve">
@@ -163,7 +163,7 @@
         <comment>Install message and also the welcome message when the app installer is not known - {0} is the placeholder for the name of the team that the app has been installed to</comment>
     </data>
     <data name="InstallMessageUnknownInstallerPart2" xml:space="preserve">
-        <value>Ich kann dir helfen, mehr Zeichensetzende des Vereins kennenzulernen, indem ich dich jede Woche zufällig mit jemandem zusammenbringe. Du lernst neue Menschen kennen und erfährst mehr über andere Zeichensetzende. Das ist eine Win-Win-*Win*-Situation.</value>
+        <value>Ich kann dir helfen, mehr Menschen der Organisation kennenzulernen, indem ich dich jede Woche zufällig mit jemandem zusammenbringe. Du lernst neue Menschen kennen und erfährst mehr über andere Menschen. Das ist eine Win-Win-*Win*-Situation.</value>
         <comment>Part 2 of the install message when the name of the installer is not known</comment>
     </data>
     <data name="InstallMessageUnknownInstallerPart3" xml:space="preserve">
@@ -267,7 +267,7 @@
         <comment>This is the tour welcome body text</comment>
     </data>
     <data name="TourWelcomeHeaderText" xml:space="preserve">
-        <value>Neue Zeichensetzende treffen und eine Community mit Ihnen aufbauen</value>
+        <value>Neue Menschen treffen und eine Community mit Ihnen aufbauen</value>
         <comment>This is the tour welcome header text</comment>
     </data>
     <data name="TourWelcomeImageAltText" xml:space="preserve">

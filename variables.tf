@@ -60,37 +60,37 @@ variable "appDisplayName" {
 
 variable "description_short" {
   type        = string
-  default     = "Bringt Zeichensetzende nach dem Zufallsprinzip zusammen."
+  default     = "Bringt Menschen nach dem Zufallsprinzip zusammen."
   description = "The short description must not be longer than 80 characters"
 }
 
 variable "description_long" {
   type        = string
-  default     = "Icebreaker ist ein niedlicher kleiner Bot, der jede Woche nach dem Zufallsprinzip Zeichensetzende zusammenbringt, um zu helfen, Vertrauen und persönliche Beziehungen aufzubauen."
+  default     = "Icebreaker ist ein niedlicher kleiner Bot, der jede Woche nach dem Zufallsprinzip Menschen zusammenbringt, um zu helfen, Vertrauen und persönliche Beziehungen aufzubauen."
   description = "The app (and bot) description."
 }
 
 variable "companyName" {
   type        = string
-  default     = "Zeichen gegen Mobbing"
+  default     = "Example Company"
   description = "The display name for the company."
 }
 
 variable "websiteUrl" {
   type        = string
-  default     = "https://zeichen-gegen-mobbing.de"
+  default     = "https://example.org"
   description = "The https:// URL to the company's website. This link should take users to your company or product-specific landing page."
 }
 
 variable "privacyUrl" {
   type        = string
-  default     = "https://zeichen-gegen-mobbing.de/datenschutz"
+  default     = "https://example.org/privacy"
   description = "The https:// URL to the company's privacy policy."
 }
 
 variable "termsOfUseUrl" {
   type        = string
-  default     = "https://zeichen-gegen-mobbing.de/impressum"
+  default     = "https://example.org/termsofuse"
   description = "The https:// URL to the company's terms of use."
 }
 
