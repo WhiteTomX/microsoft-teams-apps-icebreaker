@@ -5,6 +5,7 @@
 
 namespace Icebreaker.Services
 {
+    using System;
     using System.Globalization;
     using System.Resources;
     using System.Threading.Tasks;
@@ -40,10 +41,12 @@ namespace Icebreaker.Services
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public async Task<string> GetResourceString(string language, string name)
         {
+            this.telemetryClient.TrackTrace($"Get ResourceString for {name} in {language}");
             string resource = null;
             try
             {
                 resource = await this.dataProvider.GetResourceStringAsync(language, name);
+                this.telemetryClient.TrackTrace($"Got ResourceString '{resource}' for {name} in {language} from db");
             }
             finally
             {
@@ -58,6 +61,7 @@ namespace Icebreaker.Services
                 }
             }
 
+            this.telemetryClient.TrackTrace($"Final resourceString for {name} in {language}: {resource}");
             return resource;
         }
     }
