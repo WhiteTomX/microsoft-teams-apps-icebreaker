@@ -8,6 +8,7 @@ namespace Icebreaker.Services
     using System;
     using System.Globalization;
     using System.Resources;
+    using System.Runtime.Caching;
     using System.Threading.Tasks;
     using Icebreaker.Interfaces;
     using Icebreaker.Properties;
@@ -21,6 +22,7 @@ namespace Icebreaker.Services
         private readonly IBotDataProvider dataProvider;
         private readonly TelemetryClient telemetryClient;
         private readonly ResourceManager resourceManager;
+        private readonly MemoryCache cache;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ResourcesService"/> class.
@@ -32,6 +34,7 @@ namespace Icebreaker.Services
             this.dataProvider = dataProvider;
             this.telemetryClient = telemetryClient;
             this.resourceManager = Resources.ResourceManager;
+            this.cache = new MemoryCache(nameof(ResourcesService));
         }
 
         /// <summary>
@@ -44,31 +47,47 @@ namespace Icebreaker.Services
         {
             this.telemetryClient.TrackTrace($"Get ResourceString for {name} in {language}");
             string resource = null;
-            try
+            bool fromCache = true;
+            string cacheKey = $"{language}-{name}";
+            resource = await this.TryGetResource(() => Task.FromResult(this.cache.Get(cacheKey)?.ToString()));
+            if (string.IsNullOrEmpty(resource))
             {
-                resource = await this.dataProvider.GetResourceStringAsync(language, name);
+                fromCache = false;
+                resource = await this.TryGetResource(async () => await this.dataProvider.GetResourceStringAsync(language, name));
                 this.telemetryClient.TrackTrace($"Got ResourceString '{resource}' for {name} in {language} from db");
             }
-            finally
+
+            if (string.IsNullOrEmpty(resource))
             {
-                try
-                {
-                    if (string.IsNullOrEmpty(resource))
-                    {
-                        resource = this.resourceManager.GetString(name: name, culture: CultureInfo.CreateSpecificCulture(language));
-                    }
-                }
-                finally
-                {
-                    if (string.IsNullOrEmpty(resource))
-                    {
-                        resource = this.resourceManager.GetString(name);
-                    }
-                }
+                resource = await this.TryGetResource(() => Task.FromResult(this.resourceManager.GetString(name: name, culture: CultureInfo.CreateSpecificCulture(language))));
             }
 
+            if (string.IsNullOrEmpty(resource))
+            {
+                resource = await this.TryGetResource(() => Task.FromResult(this.resourceManager.GetString(name)));
+            }
+
+            if (!fromCache)
+            {
+                this.cache.Set(cacheKey, resource, DateTime.Now.AddSeconds(60));
+            }
+
+
             this.telemetryClient.TrackTrace($"Final resourceString for {name} in {language}: {resource}");
+
             return resource;
+        }
+
+        private async Task<string> TryGetResource(Func<Task<string>> retrieve)
+        {
+            try
+            {
+                return await retrieve();
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
