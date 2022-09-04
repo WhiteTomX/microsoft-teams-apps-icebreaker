@@ -11,6 +11,7 @@ namespace Icebreaker
     using Autofac.Integration.WebApi;
     using Icebreaker.Bot;
     using Icebreaker.Helpers;
+    using Icebreaker.Helpers.AdaptiveCards;
     using Icebreaker.Interfaces;
     using Icebreaker.Services;
     using Microsoft.ApplicationInsights;
@@ -71,8 +72,12 @@ namespace Icebreaker
             builder.RegisterType<MatchingService>().As<IMatchingService>()
                 .SingleInstance();
 
+            builder.RegisterType<ResourcesService>().SingleInstance();
+
             builder.RegisterType<IcebreakerBotDataProvider>().As<IBotDataProvider>()
                 .SingleInstance();
+
+            builder.RegisterType<AdaptiveCardFactory>().SingleInstance();
         }
     }
 }

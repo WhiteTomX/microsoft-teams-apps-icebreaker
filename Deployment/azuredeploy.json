@@ -312,6 +312,10 @@
                             "value": "IcebreakerQuestions"
                         },
                         {
+                            "name": "CosmosCollectionResourceStrings",
+                            "value": "ResourceStrings"
+                        },
+                        {
                             "name": "MaxPairUpsPerTeam",
                             "value": "5000"
                         },

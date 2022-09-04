@@ -60,43 +60,43 @@ variable "appDisplayName" {
 
 variable "description_short" {
   type        = string
-  default     = "Bringt Zeichensetzende nach dem Zufallsprinzip zusammen."
+  default     = "Bringt Menschen nach dem Zufallsprinzip zusammen."
   description = "The short description must not be longer than 80 characters"
 }
 
 variable "description_long" {
   type        = string
-  default     = "Icebreaker ist ein niedlicher kleiner Bot, der jede Woche nach dem Zufallsprinzip Zeichensetzende zusammenbringt, um zu helfen, Vertrauen und persönliche Beziehungen aufzubauen."
+  default     = "Icebreaker ist ein niedlicher kleiner Bot, der jede Woche nach dem Zufallsprinzip Menschen zusammenbringt, um zu helfen, Vertrauen und persönliche Beziehungen aufzubauen."
   description = "The app (and bot) description."
 }
 
 variable "companyName" {
   type        = string
-  default     = "Zeichen gegen Mobbing"
+  default     = "Example Company"
   description = "The display name for the company."
 }
 
 variable "websiteUrl" {
   type        = string
-  default     = "https://zeichen-gegen-mobbing.de"
+  default     = "https://example.org"
   description = "The https:// URL to the company's website. This link should take users to your company or product-specific landing page."
 }
 
 variable "privacyUrl" {
   type        = string
-  default     = "https://zeichen-gegen-mobbing.de/datenschutz"
+  default     = "https://example.org/privacy"
   description = "The https:// URL to the company's privacy policy."
 }
 
 variable "termsOfUseUrl" {
   type        = string
-  default     = "https://zeichen-gegen-mobbing.de/impressum"
+  default     = "https://example.org/termsofuse"
   description = "The https:// URL to the company's terms of use."
 }
 
 variable "app_version" {
   type        = string
-  default     = "1.1.0"
+  default     = "1.2.0"
   description = "The version String of the App. Used in Manifest."
 }
 
@@ -110,4 +110,22 @@ variable "cosmosDbServerless" {
   type        = bool
   default     = true
   description = "Use serverless CosmosDB. Not compatible with Free Tier."
+}
+
+variable "icon_color_path" {
+  type = string
+  default = "./Manifest/color.png"
+  description = "Path to the color png icon of the app."
+}
+
+variable "icon_outline_path" {
+  type = string
+  default = "./Manifest/outline.png"
+  description = "Path to the outline png icon of the app."
+}
+
+variable "icon_url" {
+  type = string
+  default = "https://raw.githubusercontent.com/WhiteTomX/microsoft-teams-apps-icebreaker/main/Manifest/color.png"
+  description = "The link to the icon for the bot. It must resolve to a PNG file."
 }

@@ -1,4 +1,4 @@
-# Icebreaker 
+# Icebreaker
 
 A lot of good things in life come about through just happenstance. Icebreaker enables happenstance for your team. Icebreaker is a Teams bot that helps the whole team get closer by pairing members up every week at random to meet for coffee, burgers, pizza, or a walk around the block. The bot does the heavy lifting of finding a new person to meet with each week, as well as suggesting times that are free for both teammates.
 

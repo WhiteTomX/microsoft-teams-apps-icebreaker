@@ -65,5 +65,13 @@ namespace Icebreaker.Interfaces
         /// <param name="questions">Questions to set for language</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         Task SetQuestionsAsync(string language, string[] questions);
+
+        /// <summary>
+        /// Get ResourceStrings from Database
+        /// </summary>
+        /// <param name="language">The language to get the resource in</param>
+        /// <param name="name">The name of the ResourceString to get</param>
+        /// <returns>A <see cref="Task"/> containing the value of the resource string eventualy.</returns>
+        Task<string> GetResourceStringAsync(string language, string name);
     }
 }

@@ -1,7 +1,11 @@
-resource "local_file" "logo" {
-  for_each       = toset(["color.png", "outline.png"])
-  content_base64 = filebase64("./Manifest/${each.key}")
-  filename       = "${path.module}/tmp/${each.key}"
+resource "local_file" "icon_color" {
+  content_base64 = filebase64(var.icon_color_path)
+  filename       = "${path.module}/tmp/color.png"
+}
+
+resource "local_file" "icon_outline" {
+  content_base64 = filebase64(var.icon_outline_path)
+  filename       = "${path.module}/tmp/outline.png"
 }
 
 resource "local_file" "manifest" {
@@ -11,7 +15,7 @@ resource "local_file" "manifest" {
     "manifestVersion" = "1.5"
     "version"         = var.app_version
     "id"              = azuread_application.icebreaker.application_id
-    "packageName"     = "de.whitetom.zgm.icebreaker${var.stage}"
+    "packageName"     = "de.whitetom.icebreaker${var.name}"
     "developer" = {
       "name"          = var.companyName
       "websiteUrl"    = var.websiteUrl
@@ -56,6 +60,6 @@ data "archive_file" "app_package" {
   output_path = "${path.module}/manifest.zip"
   source_dir  = "${path.module}/tmp"
   depends_on = [
-    local_file.logo, local_file.manifest
+    local_file.icon_outline, local_file.icon_color, local_file.manifest
   ]
 }

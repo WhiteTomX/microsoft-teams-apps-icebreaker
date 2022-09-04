@@ -25,6 +25,10 @@ jobs:
         stage: "prd"
         cosmosDbEnableFreeTier: true
         cosmosDbServerless: false
+        icon_color_path: "./icon_zgm/color.png"
+        icon_outline_path: "./icon_zgm/outline.png"
+        icon_url: "https://raw.githubusercontent.com/WhiteTomX/microsoft-teams-apps-icebreaker/main/zgm_icon/color.png"
+
     - name: terraform-apply
       uses: dflook/terraform-apply@v1
       with:

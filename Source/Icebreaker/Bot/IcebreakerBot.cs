@@ -15,6 +15,7 @@ namespace Icebreaker.Bot
     using Icebreaker.Helpers.AdaptiveCards;
     using Icebreaker.Interfaces;
     using Icebreaker.Properties;
+    using Icebreaker.Services;
     using Microsoft.ApplicationInsights;
     using Microsoft.ApplicationInsights.DataContracts;
     using Microsoft.Azure;
@@ -32,6 +33,8 @@ namespace Icebreaker.Bot
     {
         private readonly IBotDataProvider dataProvider;
         private readonly ConversationHelper conversationHelper;
+        private readonly AdaptiveCardFactory adaptiveCardFactory;
+        private readonly ResourcesService resourcesService;
         private readonly MicrosoftAppCredentials appCredentials;
         private readonly TelemetryClient telemetryClient;
         private readonly string botDisplayName;
@@ -43,12 +46,16 @@ namespace Icebreaker.Bot
         /// </summary>
         /// <param name="dataProvider">The data provider to use</param>
         /// <param name="conversationHelper">Conversation helper instance to notify team members</param>
+        /// <param name="adaptiveCardFactory">The Factory used to generate Welcome Cards for new Users</param>
+        /// <param name="resourcesService">Service to retrieve ResourcesStrings.</param>
         /// <param name="appCredentials">Microsoft app credentials to use.</param>
         /// <param name="telemetryClient">The telemetry client to use</param>
-        public IcebreakerBot(IBotDataProvider dataProvider, ConversationHelper conversationHelper, MicrosoftAppCredentials appCredentials, TelemetryClient telemetryClient)
+        public IcebreakerBot(IBotDataProvider dataProvider, ConversationHelper conversationHelper, AdaptiveCardFactory adaptiveCardFactory, ResourcesService resourcesService, MicrosoftAppCredentials appCredentials, TelemetryClient telemetryClient)
         {
             this.dataProvider = dataProvider;
             this.conversationHelper = conversationHelper;
+            this.adaptiveCardFactory = adaptiveCardFactory;
+            this.resourcesService = resourcesService;
             this.appCredentials = appCredentials;
             this.telemetryClient = telemetryClient;
             this.botDisplayName = CloudConfigurationManager.GetSetting("BotDisplayName");
@@ -136,8 +143,6 @@ namespace Icebreaker.Bot
         /// </remarks>
         protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
         {
-
-
             if (membersAdded?.Count() > 0)
             {
                 var message = turnContext.Activity;
@@ -147,11 +152,9 @@ namespace Icebreaker.Bot
 
                 foreach (var member in membersAdded)
                 {
-
                     if (member.Id == myBotId)
-                    // Bot added to Team
                     {
-
+                        // Bot added to Team
                         this.telemetryClient.TrackTrace($"Bot installed to team {teamId}");
 
                         var properties = new Dictionary<string, string>
@@ -282,7 +285,7 @@ namespace Icebreaker.Bot
                     var optOutReply = activity.CreateReply();
                     optOutReply.Attachments = new List<Attachment>
                     {
-                        this.GetOptOutCard(Resources.OptOutConfirmation),
+                        await this.GetOptOutCard(await this.resourcesService.GetResourceString(nameof(Resources.OptOutConfirmation))),
                     };
 
                     await turnContext.SendActivityAsync(optOutReply, cancellationToken).ConfigureAwait(false);
@@ -306,13 +309,13 @@ namespace Icebreaker.Bot
                     {
                         new HeroCard()
                         {
-                            Text = Resources.OptInConfirmation,
+                            Text = await this.resourcesService.GetResourceString(nameof(Resources.OptInConfirmation)),
                             Buttons = new List<CardAction>()
                             {
                                 new CardAction()
                                 {
-                                    Title = Resources.PausePairingsButtonText,
-                                    DisplayText = Resources.PausePairingsButtonText,
+                                    Title = await this.resourcesService.GetResourceString(nameof(Resources.PausePairingsButtonText)),
+                                    DisplayText = await this.resourcesService.GetResourceString(nameof(Resources.PausePairingsButtonText)),
                                     Type = ActionTypes.MessageBack,
                                     Text = MatchingActions.OptOut,
                                 },
@@ -330,12 +333,12 @@ namespace Icebreaker.Bot
                     {
                         new HeroCard()
                         {
-                            Text = Resources.ReportInactiveConfirmText,
+                            Text = await this.resourcesService.GetResourceString(nameof(Resources.ReportInactiveConfirmText)),
                             Buttons = new List<CardAction>()
                             {
                                 new CardAction()
                                 {
-                                    Title = Resources.ReportInactiveConfirmButtonText,
+                                    Title = await this.resourcesService.GetResourceString(nameof(Resources.ReportInactiveConfirmButtonText)),
                                     Type = ActionTypes.MessageBack,
                                     Text = MatchingActions.ConfirmInactive,
                                     Value = activity.Value,
@@ -350,7 +353,7 @@ namespace Icebreaker.Bot
                 {
                     bool notified = false;
                     var card = new HeroCard();
-                    card.Text = Resources.Failure;
+                    card.Text = await this.resourcesService.GetResourceString(nameof(Resources.Failure));
                     try
                     {
                         var id = (activity.Value as JObject)["id"].Value<string>();
@@ -361,11 +364,11 @@ namespace Icebreaker.Bot
                         else
                         {
                             var user = new ChannelAccount() { Id = id };
-                            notified = await this.conversationHelper.NotifyUserAsync(turnContext, MessageFactory.Attachment(this.GetOptOutCard(Resources.OptOutForcedConfirmation)), user, tenantId, cancellationToken);
+                            notified = await this.conversationHelper.NotifyUserAsync(turnContext, MessageFactory.Attachment(await this.GetOptOutCard(await this.resourcesService.GetResourceString(nameof(Resources.OptOutForcedConfirmation)))), user, tenantId, cancellationToken);
                             if (notified)
                             {
                                 await this.OptOutUser(tenantId, id, activity.ServiceUrl);
-                                card.Text = Resources.ReportInactiveConfirmedOptOutText;
+                                card.Text = await this.resourcesService.GetResourceString(nameof(Resources.ReportInactiveConfirmedOptOutText));
                             }
                             else
                             {
@@ -398,7 +401,7 @@ namespace Icebreaker.Bot
             }
         }
 
-        private Attachment GetOptOutCard(string returnMessage)
+        private async Task<Attachment> GetOptOutCard(string returnMessage)
         {
             return new HeroCard()
             {
@@ -407,8 +410,8 @@ namespace Icebreaker.Bot
                 {
                     new CardAction()
                     {
-                        Title = Resources.ResumePairingsButtonText,
-                        DisplayText = Resources.ResumePairingsButtonText,
+                        Title = await this.resourcesService.GetResourceString(nameof(Resources.ResumePairingsButtonText)),
+                        DisplayText = await this.resourcesService.GetResourceString(nameof(Resources.ResumePairingsButtonText)),
                         Type = ActionTypes.MessageBack,
                         Text = MatchingActions.OptIn,
                     },
@@ -445,7 +448,7 @@ namespace Icebreaker.Bot
 
             if (userThatJustJoined != null)
             {
-                var welcomeMessageCard = WelcomeNewMemberAdaptiveCard.GetCard(teamName, userThatJustJoined.Name, this.botDisplayName, installedTeam.InstallerName);
+                var welcomeMessageCard = await this.adaptiveCardFactory.GetWelcomeNewMemberCard(teamName, userThatJustJoined.Name, this.botDisplayName, installedTeam.InstallerName);
                 await this.conversationHelper.NotifyUserAsync(turnContext, MessageFactory.Attachment(welcomeMessageCard), userThatJustJoined, tenantId, cancellationToken);
             }
             else
@@ -467,7 +470,7 @@ namespace Icebreaker.Bot
             this.telemetryClient.TrackTrace($"Sending welcome message for team {teamId}");
 
             var teamName = turnContext.Activity.TeamsGetTeamInfo().Name;
-            var welcomeTeamMessageCard = WelcomeTeamAdaptiveCard.GetCard(teamName, botInstaller);
+            var welcomeTeamMessageCard = await this.adaptiveCardFactory.GetWelcomeTeamCard(teamName, botInstaller);
             await this.NotifyTeamAsync(turnContext, MessageFactory.Attachment(welcomeTeamMessageCard), teamId, cancellationToken);
         }
 
@@ -480,7 +483,7 @@ namespace Icebreaker.Bot
         /// <returns>Tracking task</returns>
         private async Task SendUnrecognizedInputMessageAsync(ITurnContext turnContext, Activity replyActivity, CancellationToken cancellationToken)
         {
-            replyActivity.Attachments = new List<Attachment> { UnrecognizedInputAdaptiveCard.GetCard() };
+            replyActivity.Attachments = new List<Attachment> { await this.adaptiveCardFactory.GetUnrecognizedInputCard() };
             await turnContext.SendActivityAsync(replyActivity, cancellationToken);
         }
 

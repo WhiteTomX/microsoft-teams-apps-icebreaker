@@ -1,6 +1,13 @@
+# Data stores 
+
 The app uses the following data stores:
-1. Azure Cosmos DB Account - Teams and Users Collections
-1. Application Insights
+
+1. Azure Cosmos DB Account
+   1. Teams Collection
+   2. Users collection
+   3. QuestionsCollections
+   4. ResourceStrings collection (translation)
+2. Application Insights
 
 All these resources are created in your Azure subscription. None are hosted directly by Microsoft.
 
@@ -28,7 +35,7 @@ The Users Collection stores the metadata for users as they opt out/in for pairup
 | OptedIn    | A bool value representing the status of the user's choice to opt out/in for pairups
 | ServiceUrl | The user's service URL that can be used to notify the user
 
-> **NOTE**: Users have, by default, a status of being opted "in" for pairups. When in this initial default state, the user's data is not stored in the Users Collection. Their preference is only stored in the collection if they opt out. If, following opting out, the user chooses to opt back in, then their data will remain in the collection, but with an opt in status.
+> **NOTE**: Users have, by default, a status of being opted "out" for pairups. They are not stored, until they opt-in.
 
 ## Application Insights
 
