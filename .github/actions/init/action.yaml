@@ -46,7 +46,6 @@ runs:
         echo 'storage_account_name="stzgmtficebreaker01"' >> ${{ inputs.tf_backend_file_name }}
         echo 'container_name="tfstate${{ inputs.stage }}"' >> ${{ inputs.tf_backend_file_name }}
         echo 'key="${{ inputs.stage }}.tfstate"' >> ${{ inputs.tf_backend_file_name }}
-        echo 'use_microsoft_graph=true' >> ${{ inputs.tf_backend_file_name }}
         echo 'use_azuread_auth=true' >> ${{ inputs.tf_backend_file_name }}
         echo '}' >> backend.tf
         echo '}' >> backend.tf
@@ -58,6 +57,8 @@ runs:
       run: |
         echo "TF_DIR=${{ inputs.tf_dir }}" >> $GITHUB_ENV
         echo "GITHUB_TOKEN=${{ inputs.github_token }}" >> $GITHUB_ENV
+        echo "TERRAFORM_VERSION=1.6.4" >> $GITHUB_ENV
+        
         echo "ARM_TENANT_ID=${{ inputs.arm_tenant_id }}" >> $GITHUB_ENV
         echo "ARM_SUBSCRIPTION_ID=${{ inputs.arm_subscription_id }}" >> $GITHUB_ENV
         echo "ARM_CLIENT_ID=${{ inputs.arm_client_id }}" >> $GITHUB_ENV
